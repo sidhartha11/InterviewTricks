@@ -36,7 +36,7 @@ import java.util.Set;
  * Insert all the numbers initially into a map
  * next compare all the combinations duplicates against the
  * data in the map using:
- * {@code -( element1 + element2 + nmbr ) }
+ * {@code -( element1 + element2 - nmbr ) }
  * 			</pre>
  * 
  *          <pre>

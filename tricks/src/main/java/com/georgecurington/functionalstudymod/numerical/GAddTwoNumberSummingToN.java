@@ -12,7 +12,21 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @author george
+ * @author george Curington
+ * @since Dec 25 2017
+ * @version 1.0
+ * <p><center>Pairs of numbers equaling a sum</center></p>
+ * <pre>
+ * This trick question will return unique pairs of numbers
+ * that equal to a particular N. The input array is sorted; a requirement.
+ * </pre>
+ * <p>The algorithm proceeds as follows:
+ * <ul>
+ * <li>Load the sorted array into a map
+ * <li>loop thru the sorted array
+ * <li>If the -map(current-N) exists, then you hava a pair.
+ * <li>put the pair in a set to get rid of duplicates.
+ * </ul>
  *
  */
 public class GAddTwoNumberSummingToN {
