@@ -7,7 +7,9 @@ import com.georgecurington.functionalstudymod.lists.node.Node;
 import com.georgecurington.functionalstudymod.lists.node.NodeImpl;
 
 /**
- * @author george
+ * @author george Curington
+ * @since Dec 25 2017
+ * @version 1.0
  *
  */
 public class GLinkedListImpl<N> implements GLinkedList<N> {

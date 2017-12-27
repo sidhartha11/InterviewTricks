@@ -4,14 +4,11 @@
 package com.georgecurington.functionalstudymod.listprocessing;
 
 import static org.junit.Assert.*;
-
 import java.util.Arrays;
 import java.util.List;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import com.georgecurington.functionalstudymod.sorts.GSort;
 import com.georgecurington.functionalstudymod.sorts.TestData;
 import com.georgecurington.functionalstudymod.sorts.quicksort.GQuickSort;
@@ -61,5 +58,5 @@ public class GFindNmbrRepeatedElementsInSortedArrayTest {
 		System.out.println("solution set:");
 		dups.forEach(System.out::println);
 	}
-
+	
 }

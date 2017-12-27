@@ -6,7 +6,9 @@ package com.georgecurington.functionalstudymod.lists.linkedlist;
 import com.georgecurington.functionalstudymod.lists.node.Node;
 
 /**
- * @author george
+ * @author george Curington
+ * @since Dec 25 2017
+ * @version 1.0
  * <p>
  * API for a flexible linked list<br>
  * This is a minimal implementation of a linked list.<BR>The use here is 
