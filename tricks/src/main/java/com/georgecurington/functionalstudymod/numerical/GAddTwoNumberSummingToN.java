@@ -30,7 +30,7 @@ import java.util.Set;
  *
  */
 public class GAddTwoNumberSummingToN {
-	private static final boolean DEBUG=false;
+	private static final boolean DEBUG=true;
 
 	/**
 	 * 
@@ -48,6 +48,82 @@ public class GAddTwoNumberSummingToN {
 	}
 	
 	public Set<List<Integer>> getSolutionPairSetFromSortedArray(Integer[] input, int nmbr) {
+		
+		/** map to store initial input array **/
+		Map<Integer, Map<Integer,Integer>> map = new HashMap<>();
+
+		/** set used to remove duplicates from solution set **/
+		Set<List<Integer>> unique = new HashSet<>();
+
+		/** for collecting non unique intermediate solution set **/
+		List<Integer> dups = null;
+		
+		/** put the array in the map **/
+		for (int i = 0; i < input.length; i++) {
+			Map<Integer,Integer> innerMap = map.get(input[i]);
+			if ( innerMap == null ){
+				innerMap = new HashMap<>();
+				innerMap.put(i, i);
+				map.put(input[i], innerMap);
+			} else {
+				innerMap.put(i,i);
+			}
+		}
+		if (DEBUG) {
+			System.out.println(map);
+		}
+		/** loop thru the array to get solution set **/
+		int cntr=0;
+		int len = input.length;
+		for (int a = 0; a < len; a++) {
+			cntr++;
+			int k = -(input[a] - nmbr );
+			boolean found=false;	
+			Map<Integer,Integer> innerMap = map.get(k);
+			if ( DEBUG ) {
+			System.out.println("cntr=" + cntr + ",input[a]=" + input[a] +
+					",k=" + k + ",a=" + a + ",-(input[a]-nmbr)=" + (-(input[a] - nmbr )));
+			System.out.println("innerMap=" + innerMap);
+			}
+			
+			/**
+			 * The condition being checked here is:
+			 * If the current value we are looking up in the map is identical to the 
+			 * value located in the array at index 'a' , then we need to make sure
+			 * there are multiple values for that value stored in the map; otherwise we
+			 * could end up with duplicating that value in the solution set. 
+			 */
+			if (innerMap != null ){
+				if ( k == input[a])
+				found = 
+				innerMap.size() > 1;
+				else {
+					found = true;
+				}
+			}
+			if (
+//					map.containsKey(k)
+					found
+					) {
+				if ( DEBUG ){
+					System.out.println("** " + k + "," + input[a] );
+				}
+			dups = new ArrayList<>();
+			dups.add(k);
+			dups.add(input[a]);
+			dups.sort((Integer e1, Integer e2) -> e1.compareTo(e2));
+			unique.add(dups);
+			if (DEBUG) {
+				System.out.println((cntr) + ": " + map.get(k) + "," + input[a] );
+				System.out.println((cntr) + ":unique " + unique);
+
+			}
+		}	
+		}
+		return unique;
+	}
+	
+	public Set<List<Integer>> getOldSolutionPairSetFromSortedArray(Integer[] input, int nmbr) {
 		/** set used to remove duplicates from solution set **/
 		Set<List<Integer>> unique = new HashSet<>();
 
@@ -56,8 +132,6 @@ public class GAddTwoNumberSummingToN {
 		
 		/** put the array into a map first **/
 		Map<Integer,Integer> map = new HashMap<>();
-		/** for positive numbers use the below optimization **/
-//		Arrays.stream(input).filter(p -> p < nmbr).forEach(p -> {
 		Arrays.stream(input).forEach(p -> {
 
 			map.put(p,p);

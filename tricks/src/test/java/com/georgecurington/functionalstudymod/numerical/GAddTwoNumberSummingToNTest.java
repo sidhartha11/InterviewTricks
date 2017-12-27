@@ -44,10 +44,12 @@ public class GAddTwoNumberSummingToNTest {
 		Integer[] input = {
 				2,4,-1,6 
 		};
-		
+		Integer[] input2 = {3,6, 3,0, 4, 2,2,2,2, -8, 4, 10, 1, 1, 88, 1, 98,5, -10, 4, 4, -8, 30, -6,12,11,11 };
+
 	    Set<List<Integer>> set=gadd.getSolutionPairSetFromSortedArray
-	    (input,5);
-	    
+	    (input2,22);
+	    System.out.println("input size:" + input2.length);
+	    System.out.println(set.toString());
 	    assertEquals("[[-1, 6]]", set.toString());
 	}
 

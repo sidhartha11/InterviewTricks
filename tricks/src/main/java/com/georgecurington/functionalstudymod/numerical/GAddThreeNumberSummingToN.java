@@ -24,7 +24,7 @@ import java.util.Set;
  * An unsorted array of integers.
  * Some target number N.
  * problem:
- * Find all the 'unique' triplets occuring in the array that 
+ * Find all the 'unique' triplets occurring in the array that 
  * sum up to some number N.
  * Solution:
  * There are many different solutions and approaches that can
@@ -45,8 +45,8 @@ import java.util.Set;
  *
  */
 public class GAddThreeNumberSummingToN {
-	private static final boolean DEBUG = false;
-	static private Integer[] input = { 3, 4, -3, 2, -8, 4, 10, 1, 1, 88, 1, 98, -10, 4, 4, -8, 30 };
+	private static final boolean DEBUG = true;
+	static private Integer[] input = {-6,-6,0,0,3,3,6, 3, 4, -3, 2,2,2,2, -8, 4, 10, 1, 1, 88, 1, 98, -10, 4, 4, -8, 30 };
 
 	/**
 	 * 
@@ -59,7 +59,8 @@ public class GAddThreeNumberSummingToN {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Set<List<Integer>> unique = getSolutionSet(input, 5);
+		Set<List<Integer>> unique = getSolutionSet(input, -6);
+		System.out.println("unique size=" + unique.size());
 		unique.forEach((v) -> {
 			System.out.println(v);
 		});
@@ -67,6 +68,145 @@ public class GAddThreeNumberSummingToN {
 	}
 
 	private static Set<List<Integer>> getSolutionSet(Integer[] input, int nmbr) {
+
+		/** map to store initial input array **/
+		Map<Integer, Map<Integer,Integer>> map = new HashMap<>();
+
+		/** set used to remove duplicates from solution set **/
+		Set<List<Integer>> unique = new HashSet<>();
+
+		/** for collecting non unique intermediate solution set **/
+		List<Integer> dups = null;
+		
+		/** put the array in the map **/
+		for (int i = 0; i < input.length; i++) {
+			Map<Integer,Integer> innerMap = map.get(input[i]);
+			if ( innerMap == null ){
+				innerMap = new HashMap<>();
+				innerMap.put(i, i);
+				map.put(input[i], innerMap);
+			} else {
+				innerMap.put(i,i);
+			}
+		}
+		/** loop thru the array to get solution set **/
+		int cntr=0;
+		int len = input.length;
+		for (int a = 0; a < len; a++) {
+			for (int b = a + 1; b < len  ; b++) {
+				cntr++;
+				int k = -(input[a] + input[b] - nmbr) ;
+				boolean found=false;
+				Map<Integer,Integer> innerMap = map.get(k);
+				
+				if ( DEBUG ) {
+					System.out.println("cntr=" + cntr + ",input[a]=" + input[a] + ",input[b]=" + input[b] +
+							",k=" + k + ",a=" + a + ",b=" + b +  ",-(input[a] + input[b] - nmbr)=" + (-(input[a] + input[b] - nmbr)));
+					System.out.println("innerMap=" + innerMap);
+					}
+				/**
+				 * logic:
+				 * if k is equal to either a or b locations in input, then 
+				 * check to see if the size of innerMap is greater than zero. 
+				 */
+				
+				if (innerMap != null ){
+					if ( k == input[a] && k == input[b])
+					found = 
+					innerMap.size() > 2;
+					else if ( k == input[a] || k == input[b])
+						found = 
+						innerMap.size() > 1;						
+					else {
+						found = true;
+					}
+				}
+				
+				if (    
+					//	(k != input[a] && k != input[b]) &&
+					//	map.containsKey(k)
+						found
+					) {
+					/** we found a triple **/
+					if (DEBUG) {
+						System.out.println("** " + k + "," + input[a] + "," + input[b]);
+					}
+					dups = new ArrayList<>();
+					dups.add(k);
+					dups.add(input[a]);
+					dups.add(input[b]);
+					dups.sort((Integer e1, Integer e2) -> e1.compareTo(e2));
+					unique.add(dups);
+					if (DEBUG) {
+						System.out.println((cntr) + ": " + map.get(k) + "," + input[a] + "," + input[b]);
+					}
+				}
+			}
+		}
+		return unique;
+	}
+	
+	private static Set<List<Integer>> getOld2SolutionSet(Integer[] input, int nmbr) {
+
+		/** map to store initial input array **/
+		Map<Integer, Map<Integer,Integer>> map = new HashMap<>();
+
+		/** set used to remove duplicates from solution set **/
+		Set<List<Integer>> unique = new HashSet<>();
+
+		/** for collecting non unique intermediate solution set **/
+		List<Integer> dups = null;
+		
+		/** put the array in the map **/
+		for (int i = 0; i < input.length; i++) {
+			Map<Integer,Integer> innerMap = map.get(input[i]);
+			if ( innerMap == null ){
+				innerMap = new HashMap<>();
+				innerMap.put(i, i);
+				map.put(input[i], innerMap);
+			} else {
+				innerMap.put(i,i);
+			}
+		}
+		/** loop thru the array to get solution set **/
+		int cntr=0;
+		int len = input.length;
+		for (int a = 0; a < len; a++) {
+			for (int b = a + 1; b < len  ; b++) {
+				cntr++;
+				int k = -(input[a] + input[b] - nmbr) ;
+				boolean found=false;
+				Map<Integer,Integer> innerMap = map.get(k);
+				if (innerMap != null ){
+					found = 
+					!((k == input[a] && innerMap.get(input[a]) == null)  || 
+							(k == input[b]  &&  innerMap.get(input[b]) == null));
+				}
+				if (    
+					//	(k != input[a] && k != input[b]) &&
+					//	map.containsKey(k)
+						found
+					) {
+					/** we found a triple **/
+					if (DEBUG) {
+						System.out.println("** " + k + "," + input[a] + "," + input[b]);
+					}
+					dups = new ArrayList<>();
+					dups.add(k);
+					dups.add(input[a]);
+					dups.add(input[b]);
+					dups.sort((Integer e1, Integer e2) -> e1.compareTo(e2));
+					unique.add(dups);
+					if (DEBUG) {
+						System.out.println((cntr) + ": " + map.get(k) + "," + input[a] + "," + input[b]);
+					}
+				}
+			}
+		}
+		return unique;
+	}
+	
+	private static Set<List<Integer>> getOldSolutionSet(Integer[] input, int nmbr) {
 
 		/** map to store initial input array **/
 		Map<Integer, Integer> map = new HashMap<>();
@@ -83,12 +223,16 @@ public class GAddThreeNumberSummingToN {
 		}
 
 		/** loop thru the array to get solution set **/
+		int cntr=0;
 		int len = input.length;
 		for (int a = 0; a < len; a++) {
-			for (int b = a + 1; b < len ; b++) {
-
+			for (int b = a + 1; b < len  ; b++) {
+				cntr++;
 				int k = -(input[a] + input[b] - nmbr) ;
-				if (map.containsKey(k)) {
+				if (    
+					//	(k != input[a] && k != input[b]) &&
+						map.containsKey(k)
+					) {
 					/** we found a triple **/
 					if (DEBUG) {
 						System.out.println("** " + k + "," + input[a] + "," + input[b]);
@@ -96,18 +240,17 @@ public class GAddThreeNumberSummingToN {
 
 					dups = new ArrayList<>();
 					dups.add(map.get(k));
-					dups.add(map.get(input[a]));
-					dups.add(map.get(input[b]));
+					dups.add(input[a]);
+					dups.add(input[b]);
 					dups.sort((Integer e1, Integer e2) -> e1.compareTo(e2));
 					unique.add(dups);
 
 					if (DEBUG) {
-						System.out.println(map.get(k) + "," + map.get(input[a]) + "," + map.get(input[b]));
+						System.out.println((cntr) + ": " + map.get(k) + "," + input[a] + "," + input[b]);
 					}
 				}
 			}
 		}
-
 		return unique;
 	}
 
