@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 import com.georgecurington.functionalstudymod.sorts.GSort;
+import com.georgecurington.functionalstudymod.sorts.GSortPartition;
 
 /**
  * @author george Curington
@@ -32,7 +33,7 @@ import com.georgecurington.functionalstudymod.sorts.GSort;
  * </pre>
  * 
  */
-public class GQuickSort<T extends Comparable<? super T>> implements GSort<T> {
+public class GQuickSort<T extends Comparable<? super T>> implements GSort<T>, GSortPartition<T> {
 
 	private List<T> data;
 	private T experimentalPivot;

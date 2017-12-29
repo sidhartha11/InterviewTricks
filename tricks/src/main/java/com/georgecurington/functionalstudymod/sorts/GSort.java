@@ -14,5 +14,4 @@ public interface GSort<T> {
 	void sort(List<T> data);
 	void sort();
 	void sort(boolean experimentalPivot);
-	int partition(List<T> data, int start, int end);
 }

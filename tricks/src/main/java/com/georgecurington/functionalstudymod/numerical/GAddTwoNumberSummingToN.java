@@ -30,7 +30,7 @@ import java.util.Set;
  *
  */
 public class GAddTwoNumberSummingToN {
-	private static final boolean DEBUG=true;
+	private static final boolean DEBUG=false;
 
 	/**
 	 * 

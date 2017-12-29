@@ -38,7 +38,7 @@ public class GQuickSortTest {
 	/**
 	 * Test method for {@link com.georgecurington.functionalstudymod.sorts.quicksort.GQuickSort#GQuickSort()}.
 	 */
-	@Ignore
+	@Test
 	public void testGQuickSort() {
 		GSort<String> sorter = new GQuickSort<>(Arrays.asList("charlie","apple","zorro","xenobia","andy","andy"));
 		sorter.sort();
@@ -52,7 +52,7 @@ public class GQuickSortTest {
 	/**
 	 * Test method for {@link com.georgecurington.functionalstudymod.sorts.quicksort.GQuickSort#GQuickSort()}.
 	 */
-	@Ignore
+	@Test
 	public void testGQuickSortBig() {
 		GSort<String> sorter = new GQuickSort<>(Arrays.asList(TestData.data));
 		sorter.sort();
@@ -60,7 +60,7 @@ public class GQuickSortTest {
 		sorter.getList().forEach(System.out::println);
 	}
 	
-	@Test
+	@Ignore
 	public void testGQuickSortAlreadySorted() {
 		GSort<String> sorter = new GQuickSort<>(Arrays.asList(
 				"andy", 
