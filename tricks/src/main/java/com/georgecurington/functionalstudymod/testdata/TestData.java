@@ -3,9 +3,16 @@
  */
 package com.georgecurington.functionalstudymod.testdata;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
@@ -15,6 +22,108 @@ import java.util.stream.IntStream;
  */
 public interface TestData { 
 
+	public static final String [] palindromes = {
+			"93ONNO39" ,
+			"52BYNYB25" ,
+			"AVQ99QVA" ,
+			"KJML3LMJK" ,
+			"HHFU8UFHH" ,
+			"1AE_I_EA1" ,
+			"SZT5S5TZS" ,
+			"7RQ99QR7" ,
+			"4MR33RM4" ,
+			"0XY0N0YX0" ,
+			"9F1OO1F9" ,
+			"RY8DD8YR" ,
+			"6KDTKTDK6" ,
+			"9PFLLFP9" ,
+			"ZGVIIVGZ" ,
+			"WYF_3_FYW" ,
+			"T_FKKF_T" ,
+			"LJE66EJL" ,
+			"K6H99H6K" ,
+			"VWQN99NQWV" ,
+			"BOHPPHOB" ,
+			"NBPY_YPBN" ,
+			"PGBXDXBGP" ,
+			"QV3Y7Y3VQ" ,
+			"6ISVVSI6" ,
+			"MP3IUI3PM" ,
+			"GUR11RUG" ,
+			"D8FD2DF8D" ,
+			"5XTSISTX5" ,
+			"576E4E675" ,
+			"IUC8X8CUI" ,
+			"J7XX0XX7J" ,
+			"VGKHFHKGV" ,
+			"R17M1M71R" ,
+			"F_OV8VO_F" ,
+			"QV4664VQ" ,
+			"T1QF8FQ1T" ,
+			"5L0Z7Z0L5" ,
+			"W32T_T23W" ,
+			"DCJQQJCD" ,
+			"6FD00DF6" ,
+			"8D3W66W3D8" ,
+			"7LMYYML7" ,
+			"GR7WW7RG" ,
+			"8C_LL_C8" ,
+			"DYBMTMBYD" ,
+			"02K7H7K20" ,
+			"MOJ3P3JOM" ,
+			"6GB1O1BG6" ,
+			"TZHUHUHZT" ,
+			"F8WOOW8F" ,
+			"PVTKKTVP" ,
+			"LUU7G7UUL" ,
+			"7IRAARI7" ,
+			"2SVE0EVS2" ,
+			"3MVJ9JVM3" ,
+			"DEW0A0WED" ,
+			"1P9BXB9P1" ,
+			"7V0__0V7" ,
+			"F0BK2KB0F" ,
+			"52T44T25" ,
+			"TVFGGFVT" ,
+			"UB_MOM_BU" ,
+			"O70FF07O" ,
+			"GAYGBGYAG" ,
+			"ITGQ8QGTI" ,
+			"UVEWOWEVU" ,
+			"AJV0Q0VJA" ,
+			"G3VTLTV3G" ,
+			"SI1RLR1IS" ,
+			"E6OQQO6E" ,
+			"W5RAIAR5W" ,
+			"C1D1O1D1C" ,
+			"PZOE6EOZP" ,
+			"0ZV767VZ0" ,
+			"70TXWXT07" ,
+			"NA0AA0AN" ,
+			"0MTNNTM0" ,
+			"SUKTTKUS" ,
+			"COWA9AWOC" ,
+			"51J66J15" ,
+			"SG7667GS" ,
+			"IOP77POI" ,
+			"HEZGJGZEH" ,
+			"FH1YGY1HF" ,
+			"1D9XDX9D1" ,
+			"LZZJJZZL" ,
+			"S7GBSBG7S" ,
+			"4CZV3VZC4" ,
+			"5AM7I7MA5" ,
+			"76J22J67" ,
+			"CHPGQGPHC" ,
+			"CU2OO2UC" ,
+			"G2SCACS2G" ,
+			"S8VSASV8S" ,
+			"8KLQQLK8" ,
+			"2VS44SV2" ,
+			"4ZQ55QZ4" ,
+			"0B_030_B0" 
+	};
+	
 	public static final String[]  authors = 
 		{
 		"Patricia Aakhus " ,
@@ -325,5 +434,73 @@ public interface TestData {
 	"		] " +
 	"		} " 
 	;
+	
+	public static void createTestData(
+			int strlen  /** the size of the fields **/
+			, long len   /** the number of records to create **/
+			,String file /** the name of the file to create **/
+			,int sparse  /** the number of random characters from alphabet and numbers **/
+			,String delim /** the delimiter to use **/
+			, int nmbrFields /** the number of fields **/
+			) {
+		Charset charset = Charset.forName("US-ASCII");
+		Path p1 = Paths.get(file);
+		StringBuilder sb=new StringBuilder();
+		try (BufferedWriter writer = Files.newBufferedWriter(p1, charset)) {
+			for ( long i=0; i < len; i++) {
+				sb.setLength(0);
+				for ( int x=0; x < nmbrFields; x++) {
+				if ( x != 0 ){
+					sb.append(delim);
+				}
+				String s1 = getSaltString(strlen,sparse);
+				sb.append(s1);
+				}
+				sb.append(System.lineSeparator());
+				writer.write(sb.toString(), 0, sb.length());
+//				logger.info(s3);
+			}
+		    
+		    
+		} catch (IOException x) {
+		    System.err.format("IOException: %s%n", x);
+		}
+		
+	}
+	
+	public static  String getSaltString(int len,int sparse) {
+        String SALTCHARS = "ABCDEFGHIJKLMN_OPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        int index=0;
+        while (salt.length() < len) { // length of the random string.
+        	if ( sparse > 0 )
+            index = (int) (rnd.nextFloat() * sparse);
+        	else
+        	index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
 
+    }
+
+	public static String getSaltString(int min, int max, int sparse) {
+	       String SALTCHARS = "ABCDEFGHIJKLMN_OPQRSTUVWXYZ1234567890";
+	        StringBuilder salt = new StringBuilder();
+	        Random rnd = new Random();
+	        int index=0;
+	        int len = ThreadLocalRandom.current().nextInt(min, max+1);
+	        while (salt.length() < len) { // length of the random string.
+	        	if ( sparse > 0 )
+	            index = (int) (rnd.nextFloat() * sparse);
+	        	else
+	        	index = (int) (rnd.nextFloat() * SALTCHARS.length());
+	            salt.append(SALTCHARS.charAt(index));
+	        }
+	        String saltStr = salt.toString();
+	        return saltStr;
+	}
+	
+	
 }
