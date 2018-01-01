@@ -4,7 +4,9 @@
 package com.georgecurington.functionalstudymod.lists.queue;
 
 /**
- * @author george
+ * @author george Curington
+ * @since Dec 25 2017
+ * @version 1.0
  *
  */
 public interface GQueue<E> {

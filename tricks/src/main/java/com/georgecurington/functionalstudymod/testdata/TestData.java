@@ -17,7 +17,9 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
 /**
- * @author george
+ * @author george Curington
+ * @since Dec 25 2017
+ * @version 1.0
  *
  */
 public interface TestData { 
@@ -435,6 +437,14 @@ public interface TestData {
 	"		} " 
 	;
 	
+	/**
+	 * @param strlen the size of the field to create
+	 * @param len The number of records to dump into the created file
+	 * @param file The name of the file to create
+	 * @param sparse Controls the number of random characters form the alphabet and numbers to use
+	 * @param delim The delimiter to use between fields
+	 * @param nmbrFields THe number of fields to create. 
+	 */
 	public static void createTestData(
 			int strlen  /** the size of the fields **/
 			, long len   /** the number of records to create **/

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.georgecurington.functionalstudymod.misc.listprocessing;
+package com.georgecurington.functionalstudymod.misc.listprocessing.uniquerandoms;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.georgecurington.functionalstudymod.misc.listprocessing.uniquerandoms.UniqueRandomElement;
 import com.georgecurington.functionalstudymod.testdata.TestData;
 
 /**
@@ -35,7 +36,7 @@ public class UniqueRandomElementTest {
 	}
 
 	/**
-	 * Test method for {@link com.georgecurington.functionalstudymod.misc.listprocessing.UniqueRandomElement#UniqueRandomElement(java.lang.String[])}.
+	 * Test method for {@link com.georgecurington.functionalstudymod.misc.listprocessing.uniquerandoms.UniqueRandomElement#UniqueRandomElement(java.lang.String[])}.
 	 */
 	@Test
 	public void testUniqueRandomElement() {
@@ -44,7 +45,7 @@ public class UniqueRandomElementTest {
 	}
 
 	/**
-	 * Test method for {@link com.georgecurington.functionalstudymod.misc.listprocessing.UniqueRandomElement#getRandomNames()}.
+	 * Test method for {@link com.georgecurington.functionalstudymod.misc.listprocessing.uniquerandoms.UniqueRandomElement#getRandomNames()}.
 	 */
 	@Ignore
 	public void testGetRandomNames() {
@@ -52,7 +53,7 @@ public class UniqueRandomElementTest {
 	}
 
 	/**
-	 * Test method for {@link com.georgecurington.functionalstudymod.misc.listprocessing.UniqueRandomElement#getRandomNames(int)}.
+	 * Test method for {@link com.georgecurington.functionalstudymod.misc.listprocessing.uniquerandoms.UniqueRandomElement#getRandomNames(int)}.
 	 */
 	@Test
 	public void testGetRandomNamesInt() {

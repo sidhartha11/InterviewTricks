@@ -6,7 +6,9 @@ package com.georgecurington.functionalstudymod.lists.stack;
 import com.georgecurington.functionalstudymod.lists.linkedlist.GLinkedListImpl;
 
 /**
- * @author george
+ * @author george Curington
+ * @since Dec 25 2017
+ * @version 1.0
  *
  */
 public class GStackImpl<E> extends GLinkedListImpl<E> implements GStack<E> {

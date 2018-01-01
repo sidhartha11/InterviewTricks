@@ -7,7 +7,9 @@ import java.util.Arrays;
 import java.util.Stack;
 
 /**
- * @author george
+ * @author george Curington
+ * @since Dec 25 2017
+ * @version 1.0
  *
  */
 public class ReverseString {

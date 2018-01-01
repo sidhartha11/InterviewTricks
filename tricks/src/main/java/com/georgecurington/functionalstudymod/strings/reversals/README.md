@@ -1,0 +1,2 @@
+## Trick:
+Various ways to reverse a string other than the obvious way. There is a method here that uses half the array to reverse the array. Also there is a recursive technique to reverse the array. The recursive technique uses the run time stack to perform the reversal. 
