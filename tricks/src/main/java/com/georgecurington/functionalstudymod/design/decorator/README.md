@@ -76,7 +76,7 @@ public class LuxuryCar extends CarDecorator {
     }
     
 Class Diagram below:
-![alt text](InterviewTricks/tricks/tricksmod/readmeimages/dec6.pngorator-pattern-700x486.png)
+![alt text](readmeimages/dec6.pngorator-pattern-700x486.png)
    
                          
                            
