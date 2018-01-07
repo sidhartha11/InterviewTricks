@@ -144,3 +144,6 @@ For example, we can easily change PC class implementation because client program
 uses Factory pattern.
 2. valueOf() method in wrapper classes like Boolean, Integer etc.
 
+class diagram:
+![alt text]https://github.com/sidhartha11/InterviewTricks/tree/master/tricks/readmeimages/factory-pattern-java.png
+
