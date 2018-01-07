@@ -130,7 +130,8 @@ Notice that based on the input parameter, different subclass is created and retu
 getComputer is the factory method.
 
 class diagram:
-![alt text]https://github.com/sidhartha11/InterviewTricks/tree/master/tricks/readmeimages/factory-pattern-java.png
+
+![alt text](https://github.com/sidhartha11/InterviewTricks/blob/master/tricks/readmeimages/factory-pattern-java.png)
 
 ### Factory Design Pattern Advantages ###
 1. Factory design pattern provides approach to code for interface rather than implementation.
