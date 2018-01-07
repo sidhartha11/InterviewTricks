@@ -129,10 +129,6 @@ we can keep the method that returns the subclass as static.
 Notice that based on the input parameter, different subclass is created and returned. 
 getComputer is the factory method.
 
-class diagram
-
-![alt text]https://github.com/sidhartha11/InterviewTricks/blob/master/tricks/readmeimages/factory-pattern-java.png
-
 ### Factory Design Pattern Advantages ###
 1. Factory design pattern provides approach to code for interface rather than implementation.
 2. Factory pattern removes the instantiation of actual implementation classes from client code. 
@@ -145,3 +141,5 @@ For example, we can easily change PC class implementation because client program
 uses Factory pattern.
 2. valueOf() method in wrapper classes like Boolean, Integer etc.
 
+class diagram below:
+![alt text]https://github.com/sidhartha11/InterviewTricks/blob/master/tricks/readmeimages/factory-pattern-java.png
