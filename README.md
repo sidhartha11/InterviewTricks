@@ -29,7 +29,7 @@ repository and put your name as the contributor.
 19. Selection sort ++
 20. Experimental external merge sort ++
 
-# started adding a collection of Design Patterns implemented in Java3.
+## started adding a collection of Design Patterns implemented in Java3.
 
 thus far:
 1. visitor pattern
@@ -38,5 +38,6 @@ thus far:
 4. strategy pattern
 5. decorator pattern 
 
+## Misc Thread Related Exercises fully documented( will add soon )
 
 # and so on and so on. 
