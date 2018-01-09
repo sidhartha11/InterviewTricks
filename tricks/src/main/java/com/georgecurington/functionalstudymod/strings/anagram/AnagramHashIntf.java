@@ -18,4 +18,6 @@ public interface AnagramHashIntf {
 
 	Map<Anagram, Anagram> getMap();
 
+	boolean isAnagram(AnagramHashIntf anagram2, boolean b);
+
 }

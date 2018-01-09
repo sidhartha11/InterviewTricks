@@ -5,9 +5,14 @@ package com.georgecurington.functionalstudymod.strings.anagram;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.stream.IntStream;
+
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+
+import com.georgecurington.functionalstudymod.testdata.TestData;
 
 /**
  * @author george Curington
@@ -37,7 +42,7 @@ public class AnagramImplTest {
 	@Test
 	public void testAnagramImpl() {
 		String teststring1 = "AppleAppleAppleBob";
-		String teststring2 = "elppAelppAelppABobXrX";
+		String teststring2 = "elppAelppAelppABorXrX";
 		AnagramHashIntf anagram1 = new AnagramHash(teststring1);
 		AnagramHashIntf anagram2 = new AnagramHash(teststring2);
 		assertTrue ("this should be an anagram", anagram1.isAnagram(anagram2));
@@ -47,6 +52,19 @@ public class AnagramImplTest {
 		anagram1 = new AnagramHash(teststring1);
 		anagram2 = new AnagramHash(teststring2);
 		assertTrue ("this should be an anagram", anagram1.isAnagram(anagram2));
+	}
+	
+	@Ignore
+	public void testSearchAnagrams(){
+		IntStream.range(0,Integer.MAX_VALUE).forEach(p -> {
+			String s = TestData.getSaltString(8,14,-1);
+			AnagramHashIntf anagram1 = new AnagramHash(s);
+			String s2 = TestData.getSaltString(8,14,-1);
+			AnagramHashIntf anagram2 = new AnagramHash(s2);
+			if ( anagram1.isAnagram(anagram2,true) ) {
+				System.out.println(s + "," + s2);
+			}
+		});
 	}
 
 }

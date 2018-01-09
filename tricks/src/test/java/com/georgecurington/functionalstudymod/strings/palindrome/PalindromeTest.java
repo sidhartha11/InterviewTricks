@@ -37,7 +37,7 @@ public class PalindromeTest {
 	/**
 	 * Test method for {@link com.georgecurington.functionalstudymod.strings.palindrome.Palindrome#isPalindrome(java.lang.String)}.
 	 */
-	@Ignore 
+	@Test 
 	public void testIsPalindrome() {	
 		Palindrome pal=new Palindrome();
 		assertTrue("Is not palindrome",pal.isPalindrome("abba1abba"));
@@ -54,7 +54,7 @@ public class PalindromeTest {
 		});
 	}
 	
-	@Test 
+	@Ignore 
 	public void testRemoveFirst() {	
 		Palindrome pal=new Palindrome();
 		IntStream.range(0,TestData.palindromes.length).forEach(p -> {

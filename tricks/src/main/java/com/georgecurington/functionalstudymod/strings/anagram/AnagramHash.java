@@ -90,25 +90,38 @@ public class AnagramHash implements AnagramHashIntf {
 
 	@Override
 	public boolean isAnagram(AnagramHashIntf anagram2) {
+		return isAnagram(anagram2, false );
+	}
+
+	@Override
+	public boolean isAnagram(AnagramHashIntf anagram2, boolean exactsize ) {
 
 		/** determine which is larger **/
 		int szMe = map.size();
 		int szYou = anagram2.getMap().size();
-
+		if ( exactsize ){
+			if ( szMe != szYou ){
+			return false;
+			}
+		}
 		/** see if the larger one contains the smaller one **/
 		Map<Anagram, Anagram> larger = null;
 		Map<Anagram, Anagram> smaller = null;
-		if (szMe >= szYou) {
+		if (szMe > szYou) {
 			larger = map;
 			smaller = anagram2.getMap();
-		} else {
+		} else if (szMe < szYou) {
 			smaller = map;
 			larger = anagram2.getMap();
+		} else {
+			larger = map;
+			smaller = anagram2.getMap();
 		}
 		boolean looking = true;
 		for (Anagram ele : smaller.values()) {
 			Anagram you = larger.get(ele);
-			if (!(you.getChar() == ele.getChar() && you.getCount() == ele.getCount())) {
+			if (you == null || you.getCount() != ele.getCount()) {
+//			if (you == null || !(you.getChar() == ele.getChar() && you.getCount() == ele.getCount())) {	
 				looking = false;
 				break;
 			}
