@@ -9,8 +9,8 @@ repository and put your name as the contributor.
 ## NOTE: items marked with a ++  have been implemented but not transferred to the git repo yet.
 ## I will try to keep of list of what I have put here thus far:
 1. find all pairs in an array that sum up to some input number. 
-2. fibanacci ++
-3. factorial ++
+2. fibanacci
+3. factorial
 4. various types of sorts and searches.
 5. find all triplets in an array that sum up to some input number.
 6. find the n largest elements at anypoint in time of an infinite flowing stream of elements. Approach O(log n) time complexity.
@@ -28,8 +28,10 @@ repository and put your name as the contributor.
 18. Merge Sort ++
 19. Selection sort ++
 20. Experimental external merge sort ++
+21. anagram finder
+22. palandrom finder
 
-## started adding a collection of Design Patterns implemented in Java3.
+## started adding a collection of Design Patterns implemented in Java.
 
 thus far:
 1. visitor pattern
