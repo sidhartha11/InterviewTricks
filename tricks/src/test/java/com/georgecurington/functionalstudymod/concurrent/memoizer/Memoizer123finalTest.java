@@ -6,6 +6,7 @@ package com.georgecurington.functionalstudymod.concurrent.memoizer;
 import static org.junit.Assert.*;
 
 import java.math.BigInteger;
+import java.util.stream.IntStream;
 
 import org.junit.After;
 import org.junit.Before;
@@ -35,7 +36,7 @@ public class Memoizer123finalTest {
 	/**
 	 * Test method for {@link com.georgecurington.functionalstudymod.concurrent.memoizer.Memoizer1#Memoizer1(com.georgecurington.functionalstudymod.concurrent.memoizer.Computable)}.
 	 */
-	@Test
+	@Ignore
 	public void testMemoizer1() {
 		/** create a test expensive **/
 		ExpensiveFunction compute = new ExpensiveFunction();
@@ -50,7 +51,7 @@ public class Memoizer123finalTest {
 	/**
 	 * Test method for {@link com.georgecurington.functionalstudymod.concurrent.memoizer.Memoizer1#Memoizer1(com.georgecurington.functionalstudymod.concurrent.memoizer.Computable)}.
 	 */
-	@Test
+	@Ignore
 	public void testMemoizer2() {
 		/** create a test expensive **/
 		ExpensiveFunction compute = new ExpensiveFunction();
@@ -65,7 +66,7 @@ public class Memoizer123finalTest {
 	/**
 	 * Test method for {@link com.georgecurington.functionalstudymod.concurrent.memoizer.Memoizer1#Memoizer1(com.georgecurington.functionalstudymod.concurrent.memoizer.Computable)}.
 	 */
-	@Test
+	@Ignore
 	public void testMemoizer3() {
 		/** create a test expensive **/
 		ExpensiveFunction compute = new ExpensiveFunction();
@@ -74,6 +75,28 @@ public class Memoizer123finalTest {
 		
 			BigInteger bi = memoizer3.compute("100");
 			System.out.println(bi);
+	
+	}
+	
+	/**
+	 * Test method for {@link com.georgecurington.functionalstudymod.concurrent.memoizer.Memoizer1#Memoizer1(com.georgecurington.functionalstudymod.concurrent.memoizer.Computable)}.
+	 */
+	@Test
+	public void testMemoizer() {
+		/** create a test expensive **/
+		ExpensiveFunction compute = new ExpensiveFunction();
+		Memoizer<String,BigInteger> memoizer = new Memoizer<>(compute);
+		/****/
+		IntStream.of(100,100,100,100,100).forEach(p ->  {
+			System.out.println(p);
+		});
+		
+		IntStream.of(100,100,100,100,100).forEach(p ->  {
+			BigInteger bi = memoizer.compute(String.valueOf(p));
+			System.out.println("bi=" + bi);
+			System.out.println("getting next");
+		});
+			
 	
 	}
 

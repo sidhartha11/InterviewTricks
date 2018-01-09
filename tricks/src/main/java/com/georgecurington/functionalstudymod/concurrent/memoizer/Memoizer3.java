@@ -22,6 +22,17 @@ import com.georgecurington.functionalstudymod.concurrent.threads.Utility;
  * If you would like to use a Future for the sake of cancellability but not 
  * provide a usable result, you can declare types of the form Future<?> and return null as a result 
  * of the underlying task.
+ * 
+ * This works by instead of putting the actual computed value in the ConcurrentHashMap,
+ * a Future<V> is placed there instead. The key is still the key; nothing changes there.
+ * The major change is this: Now if the key is not in the cache, ie. returns null, a Future<V>
+ * is created and quickly put into the cache. This covers most of the timing hole
+ * that was in Memoizer2. Abeilt, there is still an extremely miniscule timing hole that probably
+ * has zero probablity of ever being hit. If another thread comes along and finds a future 
+ * in the cache, it will do a f.get() and simply wait until the computation is completed.
+ * Note: The small timing hole can be further refined using a putIfAbsent in concurrenthashmap.
+ * The final implementation will employ this feature.
+ * 
  * </pre>
  * 
  * @author george Curington

@@ -38,20 +38,21 @@ public class ExpensiveFunction implements Computable<String, BigInteger> {
 	@Override
 	public BigInteger compute(String arg){
 		long number = Long.parseLong(arg);
-		
+		System.out.println("converted to long:" + number);
+		BigInteger big = new BigInteger(arg);
 //		String result = String.valueOf(Factorial.iterativeFactorial(number));
-		// 551081
-//		long n = System.nanoTime();
 		long n = System.currentTimeMillis();
-
 		String result = null;
 		try {
 //		result = String.valueOf(Factorial.recursiveFactorial(number));
-		BigInteger big = new BigInteger(arg);
+		System.out.println("converted to BigInteger=" + big);
 //		result = String.valueOf(Factorial.recursiveFactorialBig(big));
-		result = String.valueOf(Factorial.iterativeFactorialBig(number));
-
-		System.out.println("result=" + result);
+		System.out.println("calculating InteractiveFactorialBig");
+		big = Factorial.iterativeFactorialBig(number);
+		result = String.valueOf(big);
+		System.out.println("BigInteger       result=" + big);
+		System.out.println("String converted result=" + result);
+		
 		} catch ( Throwable t) {
 			System.out.println("exception:" + t);
 		}
@@ -59,7 +60,9 @@ public class ExpensiveFunction implements Computable<String, BigInteger> {
 		long e = System.currentTimeMillis();
 
 		System.out.println("elapsed:" + (e - n));
-		return new BigInteger(result);
+
+//		return new BigInteger(result);
+		return big;
 	}
 
 }
