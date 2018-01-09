@@ -3,6 +3,8 @@
  */
 package com.georgecurington.functionalstudymod.mathstuff.recursive;
 
+import java.math.BigInteger;
+
 /**
  * <pre>
  * n! = n × (n−1)! and 0! = 1
@@ -57,11 +59,27 @@ public class Factorial {
 		return fact;
 	}
 	
+	public static BigInteger iterativeFactorialBig(long big) {
+		BigInteger fact=BigInteger.ONE;
+		for (int i=1; i <= big; i++) {
+			fact=fact.multiply(BigInteger.valueOf(i));
+		}
+		return fact;
+	}
+	
 	public static long recursiveFactorial(long f) {
 		if ( f <= 1l ){
 			return 1l;
 		} else {
 			return recursiveFactorial(f - 1) * f;
+		}
+	}
+
+	public static BigInteger recursiveFactorialBig(BigInteger f) {
+		if ( f.compareTo(BigInteger.ONE) <= 0 ){
+			return BigInteger.ONE;
+		} else {
+			return recursiveFactorialBig(f.subtract(BigInteger.ONE)).multiply(f);
 		}
 	}
 

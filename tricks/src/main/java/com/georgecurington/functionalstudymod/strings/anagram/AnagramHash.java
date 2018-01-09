@@ -121,7 +121,6 @@ public class AnagramHash implements AnagramHashIntf {
 		for (Anagram ele : smaller.values()) {
 			Anagram you = larger.get(ele);
 			if (you == null || you.getCount() != ele.getCount()) {
-//			if (you == null || !(you.getChar() == ele.getChar() && you.getCount() == ele.getCount())) {	
 				looking = false;
 				break;
 			}

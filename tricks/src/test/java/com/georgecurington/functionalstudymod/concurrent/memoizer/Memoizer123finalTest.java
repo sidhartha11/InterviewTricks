@@ -16,7 +16,7 @@ import org.junit.Test;
  * @author george
  *
  */
-public class Memoizer1Test {
+public class Memoizer123finalTest {
 
 	/**
 	 * @throws java.lang.Exception
@@ -58,6 +58,21 @@ public class Memoizer1Test {
 		/****/
 		
 			BigInteger bi = memoizer2.compute("6");
+			System.out.println(bi);
+	
+	}
+	
+	/**
+	 * Test method for {@link com.georgecurington.functionalstudymod.concurrent.memoizer.Memoizer1#Memoizer1(com.georgecurington.functionalstudymod.concurrent.memoizer.Computable)}.
+	 */
+	@Test
+	public void testMemoizer3() {
+		/** create a test expensive **/
+		ExpensiveFunction compute = new ExpensiveFunction();
+		Memoizer3<String,BigInteger> memoizer3 = new Memoizer3<>(compute);
+		/****/
+		
+			BigInteger bi = memoizer3.compute("100");
 			System.out.println(bi);
 	
 	}

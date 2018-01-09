@@ -39,10 +39,10 @@ public class AnagramImplTest {
 	/**
 	 * Test method for {@link com.georgecurington.functionalstudymod.strings.anagram.AnagramImpl#AnagramImpl(char)}.
 	 */
-	@Test
+	@Ignore
 	public void testAnagramImpl() {
 		String teststring1 = "AppleAppleAppleBob";
-		String teststring2 = "elppAelppAelppABorXrX";
+		String teststring2 = "elppAelppAelppABobXrX";
 		AnagramHashIntf anagram1 = new AnagramHash(teststring1);
 		AnagramHashIntf anagram2 = new AnagramHash(teststring2);
 		assertTrue ("this should be an anagram", anagram1.isAnagram(anagram2));
@@ -65,6 +65,43 @@ public class AnagramImplTest {
 				System.out.println(s + "," + s2);
 			}
 		});
+	}
+	
+	@Test
+	public void fromStackOverflow(){
+
+		String str1 = "The grey fox jumped over the moon";
+		String str2 = "over the moon jumped fox The bobh";
+		int i,j;
+
+		boolean Flag=true;
+		i=str1.length();
+		j=str2.length();
+        System.out.println((i * j));
+		int cntr=0;
+
+		if(i==j){
+		for(int m=0;m<i;m++){
+		    for(int n=0;n<i;n++){
+		    	System.out.println("m=" + m + ",n=" + n);
+		    	cntr++;
+		        if(str1.charAt(m)==str2.charAt(n)){
+		           Flag=true;
+		           break;
+		          }
+		          else
+		          Flag=false;
+		    }
+		}
+		}
+		else{
+		Flag=false;
+		}
+        System.out.println("cntr=" + cntr);
+		if(Flag)
+		System.out.println("String is Anagram");
+		else
+		System.out.println("String is not Anagram");
 	}
 
 }

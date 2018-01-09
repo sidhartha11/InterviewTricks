@@ -44,7 +44,17 @@ public class ExpensiveFunction implements Computable<String, BigInteger> {
 //		long n = System.nanoTime();
 		long n = System.currentTimeMillis();
 
-		String result = String.valueOf(Factorial.recursiveFactorial(number));
+		String result = null;
+		try {
+//		result = String.valueOf(Factorial.recursiveFactorial(number));
+		BigInteger big = new BigInteger(arg);
+//		result = String.valueOf(Factorial.recursiveFactorialBig(big));
+		result = String.valueOf(Factorial.iterativeFactorialBig(number));
+
+		System.out.println("result=" + result);
+		} catch ( Throwable t) {
+			System.out.println("exception:" + t);
+		}
 //		long e = System.nanoTime();
 		long e = System.currentTimeMillis();
 
