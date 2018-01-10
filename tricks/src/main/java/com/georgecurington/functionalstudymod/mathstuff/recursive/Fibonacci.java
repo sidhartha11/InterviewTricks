@@ -8,7 +8,9 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.stream.IntStream;
 
 /**
- * @author George Curington
+ * @author george Curington
+ * @since Dec 25 2017
+ * @version 1.0
  *
  */
 public class Fibonacci {
@@ -67,7 +69,7 @@ public class Fibonacci {
 		if (n <= 1)
 			return n;
 		else if (fibCache.get(n) != null) {
-			System.out.println("found " + n + " in cache");
+//			System.out.println("found " + n + " in cache");
 			return fibCache.get(n);
 		}
 		return fibonacciCache(n - 1) + fibonacciCache(n - 2);
@@ -76,17 +78,19 @@ public class Fibonacci {
 
 	public void testFibonacciCache(int numberOfFibs) {
 		long startTime = System.currentTimeMillis();
-		IntStream.rangeClosed(1, numberOfFibs).forEach(p -> {
+		IntStream.rangeClosed(0, numberOfFibs).forEach(p -> {
 			Long fib = fibCache.computeIfAbsent(p, this::fibonacciCache);
-			System.out.println("fid of " + p + " is " + fib);
+//			System.out.println("fid of " + p + " is " + fib);
+			System.out.println(String.format("fib of %d is %d", p,fib));
+
 		});
 		long endTime = System.currentTimeMillis();
-		System.out.println("elapsed:" + (endTime - startTime));
+//		System.out.println("elapsed:" + (endTime - startTime));
 	}
 
 	public static void main(String[] args) {
 //		nonCachedVersions();
-		int numberOfFibs=50;
+		int numberOfFibs=100;
 		cachedVersion(numberOfFibs);
 		
 	}

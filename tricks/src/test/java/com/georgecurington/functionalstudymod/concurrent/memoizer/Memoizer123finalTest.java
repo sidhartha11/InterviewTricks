@@ -84,6 +84,8 @@ public class Memoizer123finalTest {
 	@Test
 	public void testMemoizer() {
 		/** create a test expensive **/
+		int N_CPUS = Runtime.getRuntime().availableProcessors();
+		System.out.println("number cpus:" + N_CPUS);
 		ExpensiveFunction compute = new ExpensiveFunction();
 		Memoizer<String,BigInteger> memoizer = new Memoizer<>(compute);
 		/****/
