@@ -99,4 +99,9 @@ public final class Utility {
 		int nmbrThreads = (int) (cores * (1 + (waitP / serviceP))) + 1;
 		return nmbrThreads;
 	}
+
+	public static void p(String string) {
+		System.out.println(Thread.currentThread().getName() + ":" + string);
+		
+	}
 }
