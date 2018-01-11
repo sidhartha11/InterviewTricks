@@ -33,3 +33,5 @@ Model-View-Controller (MVC) frameworks also use Observer pattern
 where Model is the Subject and Views are observers that can 
 register to get notified of any change to the model.
 
+![alt text]https://github.com/sidhartha11/InterviewTricks/blob/master/tricks/readmeimages/observer-pattern.png
+
