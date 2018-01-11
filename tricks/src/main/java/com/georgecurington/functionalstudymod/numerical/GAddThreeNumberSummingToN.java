@@ -8,9 +8,6 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @author george Curington
- * @since Dec 25 2017
- * @version 1.0
  *          <p>
  *          <center> <b>TRICK PROBLEM</b> </center>
  *          </p>
@@ -39,7 +36,9 @@ import java.util.Set;
  *          <pre>
  * Remove duplicates from the solution set
  *          </pre>
- *
+ * @author george Curington
+ * @since Dec 25 2017
+ * @version 1.0
  */
 public class GAddThreeNumberSummingToN {
 	private static final boolean DEBUG = true;

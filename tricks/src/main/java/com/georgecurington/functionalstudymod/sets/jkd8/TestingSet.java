@@ -4,8 +4,11 @@
 package com.georgecurington.functionalstudymod.sets.jkd8;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -30,7 +33,18 @@ public class TestingSet {
 	 */
 	public TestingSet() {
 		init();
-		section_1();
+		linkedhashset_1();
+	}
+
+	private void linkedhashset_1() {
+		/** set the initial compacity to 8 **/
+		
+		Set<Character> s2 = new LinkedHashSet<>(8);
+		Set<Character> s3 = new HashSet<>(Arrays.asList('a','b','j','q','z','1'));
+		s3.stream().forEach(System.out::println);
+		Collections.addAll(s2, 'a','b','j','q','z','1');
+		s2.stream().forEach(System.out::println);
+		
 	}
 
 	private void section_1() {
