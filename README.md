@@ -30,6 +30,7 @@ repository and put your name as the contributor.
 20. Experimental external merge sort ++
 21. anagram finder
 22. palandrom finder
+23. reverse string method in O(n/2) time complexity; includes recursive example O(n) complexity
 
 ## started adding a collection of Design Patterns implemented in Java.
 
@@ -41,5 +42,7 @@ thus far:
 5. decorator pattern 
 
 ## Misc Thread Related Exercises fully documented( will add soon )
+1. various chapters from Concurrency In Practice by Brian Goetz are examined in detail.
+2. Added some jkd8 lambda features to some of the Concurrency In Practice examples.
 
 # and so on and so on. 
