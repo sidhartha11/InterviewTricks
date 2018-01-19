@@ -478,6 +478,46 @@ public interface TestData {
 		
 	}
 	
+	public static void createTestDataSlowly(
+			int strlen  /** the size of the fields **/
+			, long len   /** the number of records to create **/
+			,String file /** the name of the file to create **/
+			,int sparse  /** the number of random characters from alphabet and numbers **/
+			,String delim /** the delimiter to use **/
+			, int nmbrFields /** the number of fields **/
+			, long sleep
+			) {
+		Charset charset = Charset.forName("US-ASCII");
+		Path p1 = Paths.get(file);
+		StringBuilder sb=new StringBuilder();
+		try (BufferedWriter writer = Files.newBufferedWriter(p1, charset)) {
+			for ( long i=0; i < len; i++) {
+				sb.setLength(0);
+				for ( int x=0; x < nmbrFields; x++) {
+				if ( x != 0 ){
+					sb.append(delim);
+				}
+				String s1 = getSaltString(strlen,sparse);
+				sb.append(s1);
+				}
+				sb.append(System.lineSeparator());
+				writer.write(sb.toString(), 0, sb.length());
+				try {
+					Thread.sleep(sleep);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+//				logger.info(s3);
+			}
+		    
+		    
+		} catch (IOException x) {
+		    System.err.format("IOException: %s%n", x);
+		}
+		
+	}
+	
 	public static  String getSaltString(int len,int sparse) {
         String SALTCHARS = "ABCDEFGHIJKLMN_OPQRSTUVWXYZ1234567890";
         StringBuilder salt = new StringBuilder();

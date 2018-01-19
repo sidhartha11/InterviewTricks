@@ -1,0 +1,168 @@
+/**
+ * 
+ */
+package com.georgecurington.functionalstudymod.concurrent.cancellationshutdown;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import com.georgecurington.functionalstudymod.concurrent.threads.Utility;
+
+/**
+ * <pre>
+ * Exposed in Concurrency in Practice:
+ * Method timedRunBad
+ * This is an attempt to create a method that will run a given
+ * task for a specific period of time. If the task does not finish
+ * in the given time period, the method interrupt the parent calling 
+ * Thread ( or the parent thread even if it was not the actual Thread
+ * that called this method .. if that is possible ).
+ * 
+ * Rules Violated:
+ * 1. you should know a calling Thread's interruption policy before
+ * interrupting it. 
+ * 2. if the task finishes before the timed scheduled by the cancelling 
+ * thread, who knows what might happen in the calling thread. (note:
+ * it is possible to use the ScheduledFuture returned by schedule to 
+ * fix problem (2))
+ * </pre>
+ * @author George Curington
+ *
+ */
+public class TimedRun {
+
+	/** create an instance of ScheduledExecutorService **/
+	private static final ScheduledExecutorService cancelExec =
+			Executors.newScheduledThreadPool(1);
+	/**
+	 * 
+	 */
+	public TimedRun() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		Task t = new Task();
+
+		try {
+			timedRun(t,1000,TimeUnit.MILLISECONDS);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			System.out.println("mainthread caught exception:" + e);
+		}
+
+	}
+	
+	public static void timedRunBad(
+			Runnable r,
+			long timeout , 
+			TimeUnit unit) {
+		
+		/** get a pointer to the Thread that is curently running **/
+		final Thread taskThread = Thread.currentThread();
+		
+		/** schedule a cancellation task to interrupt the currently running thread **/
+		cancelExec.schedule(
+				/** task to execute **/
+				new Runnable(){
+					@Override
+					public void run() {
+						taskThread.interrupt();
+					}
+				}, 
+				/** time to wait before running **/
+				timeout, 
+				/** time units, millis, nanos etc **/
+				unit
+				);
+		
+		/** now execute the Runnable owned by the Thread **/
+		r.run();
+		
+	}
+	
+	public static void timedRun 
+	(
+		final Runnable r,
+		long timeout,
+		TimeUnit unit
+	) throws InterruptedException {
+		/**
+		 * Create an inner class to execute the input Runnable
+		 */
+		
+		class RethrowableTask implements Runnable {
+			
+			/** volatile Throwable variable to save an exception by Runnable **/		
+			private volatile Throwable t;
+			
+			public void run() {
+				try {
+					r.run();
+				} catch (Throwable t){
+					this.t = t;
+				}
+			}
+			/** method used to rethrow an Exception created by Runnable **/
+			void rethrow() {
+				if ( t != null ) {
+					throw Utility.launderThrowable(t);
+				} else if ( Thread.currentThread().isInterrupted()){
+					System.out.println("we were interrupted");
+					throw new InterruptedException("Runnable died");
+			}
+			
+		}
+		
+		/** create the RethrowableTask **/
+		RethrowableTask task = new RethrowableTask();
+		final Thread taskThread = new Thread(task);
+		taskThread.start();
+
+		cancelExec.schedule
+		(
+				new Runnable(){
+
+					@Override
+					public void run() {
+						taskThread.interrupt();					
+					}
+					
+				}, 
+				timeout, 
+				unit
+		);
+		
+		/** join the inner task first **/
+		/** note: join completes with unit times out
+		 *  currently Java API cannot determine if this was
+		 *  caused by an exception or the acual timeout
+		 */
+		taskThread.join(unit.toMillis(timeout));
+		
+		/** now rethrow the task, just in case an exception was caught **/
+		task.rethrow();
+	}
+	
+	
+	public static class Task implements Runnable {
+
+		@Override
+		public void run() {
+			try {
+				System.out.println("Task is sleeping");
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				System.out.println("Task was interrupted");
+				e.printStackTrace();
+			}
+			
+		}
+		
+	}
+	
+}
