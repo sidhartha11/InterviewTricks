@@ -518,6 +518,10 @@ public interface TestData {
 		
 	}
 	
+	public static  String getUniqueString() {	;
+		return getSaltString(8,-1);
+    }
+	
 	public static  String getSaltString(int len,int sparse) {
         String SALTCHARS = "ABCDEFGHIJKLMN_OPQRSTUVWXYZ1234567890";
         StringBuilder salt = new StringBuilder();

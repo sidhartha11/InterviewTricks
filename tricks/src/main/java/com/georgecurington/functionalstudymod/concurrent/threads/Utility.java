@@ -3,8 +3,10 @@
  */
 package com.georgecurington.functionalstudymod.concurrent.threads;
 
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadLocalRandom;
@@ -12,6 +14,9 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
+
+import com.georgecurington.functionalstudymod.utilities.Pair;
+import com.georgecurington.functionalstudymod.utilities.PairImpl;
 
 /**
  * @author George Curington
@@ -85,6 +90,12 @@ public final class Utility {
 				new LinkedBlockingQueue<Runnable>(), new MyThreadFactory(poolName));
 	}
 
+	public static Pair<Future<?>,ExecutorService> oneOff(Callable<Void> c) {
+		ExecutorService exec = myCachedThreadPool("oneOff");
+		Future<?> f = exec.submit(c);
+		Pair<Future<?>,ExecutorService> pair = new PairImpl<>(f,exec);
+		return pair;
+	}
 	public static int calcNmbrThreads(int cores, double serviceP, double waitP) {
 		/**
 		 * threads = numberCores( 1 + (waittimeP/serviceP) waittimeP I think

@@ -24,9 +24,9 @@ import java.util.concurrent.RunnableFuture;
  * socket-using threads by overriding interrupt; the same can be done
  * for tasks by overriding Future.cancel.
  * 
- * CancellableTask in Listing 7.12 deines a CancellableTask interface
- * that extends Callable and adds a cancel method and a newTask
- * factory method for constructing a RunnableFuture.
+ * This interface enhances the Callble interface by adding two new apis:
+ * cancel and newTask.
+ * newTask will return a RunnableFuture in implementing class. 
  * 
  * </pre>
  * 

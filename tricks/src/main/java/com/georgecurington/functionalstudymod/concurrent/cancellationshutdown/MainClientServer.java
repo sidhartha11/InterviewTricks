@@ -21,8 +21,11 @@ public class MainClientServer {
 		
 		/** submit the server task via ExecutorService **/
 		ServerSocketTask ss = new ServerSocketTask(ServerSocketClientUtil.SERVERPORT);
+		
+		
+		
 		ExecutorService exec = Executors.newCachedThreadPool();
-		Future<?> f = exec.submit(ss);
+		Future<?> serverFuture = exec.submit(ss);
 		
 		/** let the client run as an old fashion Thread **/
 		ClientTask clientTask = new ClientTask(ServerSocketClientUtil.SERVERPORT);
