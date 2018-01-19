@@ -24,7 +24,7 @@ repository and put your name as the contributor.
 14. Use the visitor pattern to process the nodes in the traversals of ( 13 ). 
 15. Implement a binary search
 16. Implement a quick sort algorithm
-17. Bubble Sort ++
+17. Bubble Sort 
 18. Merge Sort ++
 19. Selection sort ++
 20. Experimental external merge sort ++
