@@ -30,6 +30,7 @@ repository and put your name as the contributor.
 20. Experimental external merge sort ++
 21. anagram finder
 22. palandrom finder
+23. reverse string method in O(n/2) time complexity; includes recursive example O(n) complexity
 
 ## started adding a collection of Design Patterns implemented in Java.
 
