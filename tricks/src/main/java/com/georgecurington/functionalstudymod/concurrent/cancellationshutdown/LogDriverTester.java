@@ -10,6 +10,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -211,6 +212,8 @@ public class LogDriverTester {
 			} /** end of run */
 
 		}
+		
+		
 
 		public static void main(String... strings)  {
 			PrintWriter pw = new PrintWriter(System.out);
@@ -227,9 +230,6 @@ public class LogDriverTester {
 			Stopper stopper = new Stopper(logger);
 			Pair<Future<?>, ExecutorService> execPair = Utility.oneOff(worker);
 			Pair<Future<?>, ExecutorService> execPairStopper = Utility.oneOff(stopper);
-			// logger.log("hello");
-			// logger.log("hello");
-			// logger.log("hello");
 			ExecutorService exec1 = execPair.getRight();
 			ExecutorService exec2 = execPairStopper.getRight();
 			try {
