@@ -4,14 +4,17 @@
 package com.georgecurington.functionalstudymod.listprocessing;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
- * <pre><p><b>INTERVIEW TRICKS</b></p></pre>
- * <p>================================================</p>
+ * <pre>
+ * <p><b>INTERVIEW TRICKS</b></p>
+ * </pre>
+ * <p>
+ * ================================================
+ * </p>
+ * 
  * <pre>
  * Simple algorithm to remove duplicates from a sorted array.
  * The only thing interesting about the algorithm is the 
@@ -19,7 +22,9 @@ import java.util.Objects;
  * of O(1).
  * The recursive version is interesting in how it works.
  * </pre>
+ * 
  * <br>
+ * 
  * @author George Curington
  * @version 1.0.0
  * @since Jan 20, 2018
@@ -49,6 +54,11 @@ public class GSqueeze<T> implements GSqueezeIntf<T> {
 		return squeezeSortedIterativeTempList(list);
 	}
 
+	@Override
+	public List<T> squeezeIterInPlace() {
+		return squeezeSortedIterativeInplaceList(list);
+	}
+
 	private List<T> squeezeSortedRecursive(List<T> list2, ArrayList<T> acc) {
 		if (list2.size() == 1) {
 			acc.add(list2.get(0));
@@ -73,6 +83,24 @@ public class GSqueeze<T> implements GSqueezeIntf<T> {
 		}
 		temp.add(list2.get(limitsize));
 		return temp;
+	}
+
+	private List<T> squeezeSortedIterativeInplaceList(List<T> list2) {
+		int limitsize = list2.size() - 1;
+		int j = 0;
+		for (int i = 0; i < limitsize; i++) {
+			if (!list2.get(i).equals(list2.get(i + 1))) {
+				// list2.add(j, list2.get(i));
+				list2.set(j, list2.get(i));
+				j++;
+			}
+		}
+		list2.set(j, list2.get(limitsize));
+		int d = j;
+		for (; j < limitsize; j++) {
+			list2.remove(d);
+		}
+		return list2;
 	}
 
 }

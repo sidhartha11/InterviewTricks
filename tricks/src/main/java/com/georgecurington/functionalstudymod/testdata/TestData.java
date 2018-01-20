@@ -5,6 +5,8 @@ package com.georgecurington.functionalstudymod.testdata;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -554,6 +556,27 @@ public interface TestData {
 	        }
 	        String saltStr = salt.toString();
 	        return saltStr;
+	}
+
+	public static List<URL> getAListOfFakeLinks(int i) {
+		List<URL> urls = new ArrayList<>();
+		IntStream.rangeClosed(1, i).forEach(p -> {
+			String us = "http://" + getUniqueString();
+			try {
+				try {
+					Thread.sleep(1000);
+					urls.add(new URL(us));
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					// e.printStackTrace();
+				}
+				
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+		return urls;
 	}
 	
 	

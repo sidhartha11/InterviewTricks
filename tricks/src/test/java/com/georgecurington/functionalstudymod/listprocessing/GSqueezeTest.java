@@ -5,6 +5,7 @@ package com.georgecurington.functionalstudymod.listprocessing;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -64,7 +65,7 @@ public class GSqueezeTest {
 		System.out.println(sqz.toString());
 	}
 
-	@Test
+	@Ignore
 	public void testGSqueezeIter() {
 		List<String> list = Arrays.asList("a", "a", "b", "3", "4", "4", "4");
 		Collections.sort(list);
@@ -73,6 +74,20 @@ public class GSqueezeTest {
 		GSqueezeIntf<String> gsqueeze = new GSqueeze<>(list);
 		assertNotNull("ctr error", gsqueeze);
 		List<String> sqz = gsqueeze.squeezeIterTemp();
+		assertEquals("not sqozen", "[3, 4, a, b]", sqz.toString());
+		System.out.println(sqz.toString());
+	}
+	
+	@Test
+	public void testGSqueezeIterInplace() {
+//		List<String> list = Arrays.asList("a", "a", "b", "3", "4", "4", "4");
+		List<String> list = new ArrayList<>(Arrays.asList("a", "a", "b", "3", "4", "4", "4"));
+		Collections.sort(list);
+		System.out.println(list);
+		assertEquals("list must be sorted", "[3, 4, 4, 4, a, a, b]", list.toString());
+		GSqueezeIntf<String> gsqueeze = new GSqueeze<>(list);
+		assertNotNull("ctr error", gsqueeze);
+		List<String> sqz = gsqueeze.squeezeIterInPlace();
 		assertEquals("not sqozen", "[3, 4, a, b]", sqz.toString());
 		System.out.println(sqz.toString());
 	}

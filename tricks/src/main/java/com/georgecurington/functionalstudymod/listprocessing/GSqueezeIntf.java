@@ -21,4 +21,6 @@ public interface GSqueezeIntf<T> {
 	public List<T> squeeze();
 
 	List<T> squeezeIterTemp();
+
+	List<T> squeezeIterInPlace();
 }
