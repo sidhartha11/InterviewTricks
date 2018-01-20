@@ -31,6 +31,7 @@ repository and put your name as the contributor.
 21. anagram finder
 22. palandrom finder
 23. reverse string method in O(n/2) time complexity; includes recursive example O(n) complexity
+24. remove duplicates from a sorted array: 1.Iterative , 2. Inplace , 3. Recursive  
 
 ## started adding a collection of Design Patterns implemented in Java.
 
