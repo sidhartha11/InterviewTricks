@@ -232,7 +232,7 @@ public class GMergeImpl<T extends Comparable<? super T>> implements GSort<T>, Me
 		}
 	}
 
-	protected int midpoint(int p, int r) {
+	public int midpoint(int p, int r) {
 		int midpoint = (int) Math.floor(((p + r)) / 2);
 		return midpoint;
 	}

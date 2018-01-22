@@ -24,4 +24,6 @@ public interface Merge<T> {
 
 	public void merge_sort(List<T> data, int p, int r);
 
+	public int midpoint(int p, int r);
+
 }

@@ -17,13 +17,21 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.georgecurington.functionalstudymod.lists.queue.GQueueImpl;
 import com.georgecurington.functionalstudymod.sorts.GSort;
+import com.georgecurington.functionalstudymod.sorts.bubblesort.GBubbleSort;
+import com.georgecurington.functionalstudymod.sorts.quicksort.GQuickSort;
 import com.georgecurington.functionalstudymod.utilities.Pair;
 
 /**
- * <pre><p><b>INTERVIEW TRICKS</b></p></pre>
- * <p>================================================</p>
+ * <pre>
+ * <p><b>INTERVIEW TRICKS</b></p>
+ * </pre>
+ * <p>
+ * ================================================
+ * </p>
  * <br>
+ * 
  * @author George Curington
  * @version 1.0.0
  * @since Jan 21, 2018
@@ -47,7 +55,8 @@ public class GMergeImplTest {
 	}
 
 	/**
-	 * Ignore method for {@link com.georgecurington.functionalstudymod.sorts.merge.GMergeImpl#GMergeImpl(java.util.List)}.
+	 * Ignore method for
+	 * {@link com.georgecurington.functionalstudymod.sorts.merge.GMergeImpl#GMergeImpl(java.util.List)}.
 	 */
 	@Ignore
 	public void testGMergeImplListOfT() {
@@ -55,7 +64,8 @@ public class GMergeImplTest {
 	}
 
 	/**
-	 * Ignore method for {@link com.georgecurington.functionalstudymod.sorts.merge.GMergeImpl#GMergeImpl()}.
+	 * Ignore method for
+	 * {@link com.georgecurington.functionalstudymod.sorts.merge.GMergeImpl#GMergeImpl()}.
 	 */
 	@Ignore
 	public void testGMergeImpl() {
@@ -64,7 +74,8 @@ public class GMergeImplTest {
 	}
 
 	/**
-	 * Ignore method for {@link com.georgecurington.functionalstudymod.sorts.merge.GMergeImpl#getList()}.
+	 * Ignore method for
+	 * {@link com.georgecurington.functionalstudymod.sorts.merge.GMergeImpl#getList()}.
 	 */
 	@Ignore
 	public void testGetList() {
@@ -72,7 +83,8 @@ public class GMergeImplTest {
 	}
 
 	/**
-	 * Ignore method for {@link com.georgecurington.functionalstudymod.sorts.merge.GMergeImpl#sort(java.util.List)}.
+	 * Ignore method for
+	 * {@link com.georgecurington.functionalstudymod.sorts.merge.GMergeImpl#sort(java.util.List)}.
 	 */
 	@Ignore
 	public void testSortListOfT() {
@@ -80,7 +92,8 @@ public class GMergeImplTest {
 	}
 
 	/**
-	 * Ignore method for {@link com.georgecurington.functionalstudymod.sorts.merge.GMergeImpl#sort()}.
+	 * Ignore method for
+	 * {@link com.georgecurington.functionalstudymod.sorts.merge.GMergeImpl#sort()}.
 	 */
 	@Ignore
 	public void testSort() {
@@ -88,98 +101,91 @@ public class GMergeImplTest {
 	}
 
 	/**
-	 * Ignore method for {@link com.georgecurington.functionalstudymod.sorts.merge.GMergeImpl#merge(java.util.List, int, int, int)}.
+	 * Ignore method for
+	 * {@link com.georgecurington.functionalstudymod.sorts.merge.GMergeImpl#merge(java.util.List, int, int, int)}.
 	 */
 	@Ignore
 	public void testCreateSublists() {
-		List<Integer> data = 
-		Arrays.asList(0,3,5,6,10,80,2,3,7,11,15,80,80);
-//		Arrays.asList(3,5,6,10,80,2,3,7,11,15);
+		List<Integer> data = Arrays.asList(0, 3, 5, 6, 10, 80, 2, 3, 7, 11, 15, 80, 80);
+		// Arrays.asList(3,5,6,10,80,2,3,7,11,15);
 		GSort<Integer> sort = new GMergeImpl<>(data);
 		assertNotNull("ctr error", sort);
 		/** create a fake array with each half sorted **/
 
-		
 		/** determine what p,q,r should be **/
 		int p = 0;
 		int r = data.size();
-		int q = midpoint(p,r);
-		
-		
+		int q = ((Merge<Integer>) sort).midpoint(p, r);
+
 		@SuppressWarnings("unchecked")
-		Pair<List<Integer>, List<Integer>> pair = (Pair<List<Integer>, List<Integer>>)((Merge<Integer>)sort).getHalves(data,p,q,r);
-		
+		Pair<List<Integer>, List<Integer>> pair = (Pair<List<Integer>, List<Integer>>) ((Merge<Integer>) sort)
+				.getHalves(data, p, q, r);
+
 		System.out.println("data=" + data);
 		System.out.println("pair=" + pair);
 
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Ignore
 	public void testMerge() {
 		GSort<Integer> sort = new GMergeImpl<>();
 		assertNotNull("ctr error", sort);
 		/** create a fake array with each half sorted **/
-		List<Integer> data = 
-//		Arrays.asList(0,3,5,6,10,80,2,3,7,11,15,80,80);
-		Arrays.asList(0,3,5,6,10,11,1,2,3,7,11,15,80);
-		
-		List<Integer> data2 = 
-//				Arrays.asList(0,3,5,6,10,80,2,3,7,11,15,80,80);
-				Arrays.asList(0,3,5,6,10,11,1,2,3,7,11,15,80);
-		
+		List<Integer> data =
+				// Arrays.asList(0,3,5,6,10,80,2,3,7,11,15,80,80);
+				Arrays.asList(0, 3, 5, 6, 10, 11, 1, 2, 3, 7, 11, 15, 80);
+
+		List<Integer> data2 =
+				// Arrays.asList(0,3,5,6,10,80,2,3,7,11,15,80,80);
+				Arrays.asList(0, 3, 5, 6, 10, 11, 1, 2, 3, 7, 11, 15, 80);
+
 		Collections.sort(data2);
 		System.out.println(data2);
-		
+
 		/** determine what p,q,r should be **/
 		int size = data.size();
-		int midpoint = (int) Math.floor(size/2);
+		int midpoint = (int) Math.floor(size / 2);
 		int p = 0;
 		int q = midpoint;
 		int r = data.size();
 
-       ((Merge<Integer>)sort).merge(data,p,q,r);
-       
-       System.out.println(data);
-       
-       assertEquals("merge failed", data2.toString(), data.toString());
+		((Merge<Integer>) sort).merge(data, p, q, r);
 
+		System.out.println(data);
+
+		assertEquals("merge failed", data2.toString(), data.toString());
 
 	}
-	
+
 	@Ignore
 	public void testMidpoint() {
 		GSort<Integer> sort = new GMergeImpl<>();
 		assertNotNull("ctr error", sort);
 		/** create a fake array with each half sorted **/
-		List<Integer> data = 
-		Arrays.asList(0,3,5,6,10,11,1,2,3,7,11,15,80);
-		
-		List<Integer> data2 = 
-				Arrays.asList(0,3,5,6,10,11,1,2,3,7,11,15,80);
-		
+		List<Integer> data = Arrays.asList(0, 3, 5, 6, 10, 11, 1, 2, 3, 7, 11, 15, 80);
+
+		List<Integer> data2 = Arrays.asList(0, 3, 5, 6, 10, 11, 1, 2, 3, 7, 11, 15, 80);
+
 		Collections.sort(data2);
 		System.out.println(data2);
-		
+
 		/** determine what p,q,r should be **/
-		
+
 		int size = data.size();
-		
 
 		int p = 0;
 		int r = data.size();
-		int midpoint = midpoint(p, r);
+		int midpoint = ((Merge<Integer>) sort).midpoint(p, r);
 		int q = midpoint;
-		
+
 		System.out.println("midpoint=" + midpoint);
-		
-	    ((Merge<Integer>)sort).merge(data,p,q,r);
 
-       
-       System.out.println(data);
-       
-       assertEquals("merge failed", data2.toString(), data.toString());
+		((Merge<Integer>) sort).merge(data, p, q, r);
 
+		System.out.println(data);
+
+		assertEquals("merge failed", data2.toString(), data.toString());
 
 	}
 
@@ -188,131 +194,146 @@ public class GMergeImplTest {
 		GSort<Integer> sort = new GMergeImpl<>();
 		assertNotNull("ctr error", sort);
 		/** create a fake array with each half sorted **/
-		List<Integer> data = 
-		Arrays.asList(0,3,5,6,10,11,1,2,3,7,11,15,80);
-		
-		List<Integer> data2 = 
-				Arrays.asList(0,3,5,6,10,11,1,2,3,7,11,15,80);
-		
+		List<Integer> data = Arrays.asList(0, 3, 5, 6, 10, 11, 1, 2, 3, 7, 11, 15, 80);
+
+		List<Integer> data2 = Arrays.asList(0, 3, 5, 6, 10, 11, 1, 2, 3, 7, 11, 15, 80);
+
 		Collections.sort(data2);
 		System.out.println(data2);
-		
+
 		/** determine what p,q,r should be **/
-		
+
 		int size = data.size();
-		
 
 		int p = 0;
 		int r = data.size();
-		int midpoint = midpoint(p, r);
+		int midpoint = ((Merge<Integer>) sort).midpoint(p, r);
 		int q = midpoint;
-		
+
 		System.out.println("midpoint=" + midpoint);
 
-	   ((Merge<Integer>)sort).merge_sort(data,p,r-1);
-       
-       System.out.println(data);
-       
-       assertEquals("merge failed", data2.toString(), data.toString());
+		((Merge<Integer>) sort).merge_sort(data, p, r - 1);
 
+		System.out.println(data);
+
+		assertEquals("merge failed", data2.toString(), data.toString());
 
 	}
-	
-	@Test
+
+	@Ignore
 	public void testsort() {
-		List<Integer> data = 
-		Arrays.asList(0,3,5,6,10,80,2,3,7,11,15,80,80);
-		List<Integer> data2 = 
-		Arrays.asList(0,3,5,6,10,80,2,3,7,11,15,80,80);
-		
-		
+		List<Integer> data = Arrays.asList(0, 3, 5, 6, 10, 80, 2, 3, 7, 11, 15, 80, 80);
+		List<Integer> data2 = Arrays.asList(0, 3, 5, 6, 10, 80, 2, 3, 7, 11, 15, 80, 80);
+
 		GSort<Integer> sort = new GMergeImpl<>(data);
 		assertNotNull("ctr error", sort);
-		/** create a fake array with each half sorted **/
-//		List<Integer> data = 
-//		Arrays.asList(
-//				36,
-//				59,
-//				16,
-//				47,
-//				61,
-//				36,
-//				64,
-//				68,
-//				79,
-//				74,
-//				62
-//				);
-//		
-//		List<Integer> data2 = 
-//				Arrays.asList
-//				(
-//						36,
-//						59,
-//						16,
-//						47,
-//						61,
-//						36,
-//						64,
-//						68,
-//						79,
-//						74,
-//						62
-//
-//				);
-		
+
 		Collections.sort(data2);
 		System.out.println(data2);
 
-	   sort.sort();
-       
-       System.out.println(data);
-       
- //      assertEquals("merge failed", data2.toString(), data.toString());
+		sort.sort();
 
+		System.out.println(data);
+
+		// assertEquals("merge failed", data2.toString(), data.toString());
 
 	}
-	
-	@Ignore
-	public void testBigsort() {
-		GSort<Integer> sort = new GMergeImpl<>();
-		assertNotNull("ctr error", sort);
+
+	@Test
+	public void testBigMergeSort() {
+		System.out.println("testing mergesort");
+		IntStream.rangeClosed(0,10).forEach(r -> {	
 		/** create a fake array with each half sorted **/
 		List<Integer> data = new ArrayList<>();
-		IntStream.rangeClosed(0,1000).forEach(p -> {	
+//		System.out.println("loading");
+		long start = System.currentTimeMillis();
+
+		IntStream.rangeClosed(0, 10_000_000).forEach(p -> {
 			int i = ThreadLocalRandom.current().nextInt(0, Integer.MAX_VALUE);
 			data.add(i);
 		});
-//	       data.forEach(System.out::println);
-//	       System.out.println("====================");
 
-//		Collections.sort(data2);
+		long end = System.currentTimeMillis();
+		String fmt = String.format("elapsed in ms:%d, in secs:%d", end - start,((end - start) / 1000));
+//		System.out.println(fmt);
+		GSort<Integer> sort = new GMergeImpl<>(data);
+		assertNotNull("ctr error", sort);
+//		System.out.println("sorting");
+		start = System.currentTimeMillis();
+		sort.sort();
+		end = System.currentTimeMillis();
 
-	   sort.sort(data);
-       
-       data.forEach(System.out::println);
+//		data.stream().limit(100).forEach(System.out::println);
+		fmt = String.format("elapsed in ms:%d, in secs:%d", end - start,((end - start) / 1000));
+		System.out.println(fmt);
+		
+		
+	});
 	}
-	/**
-	 * @param p
-	 * @param r
-	 * @return
-	 */
-//	private int midpoint(int p, int r) {
-//		int midpoint = (int) Math.floor(((p + r)-1)/2);
-//		return midpoint;
-//	}
-	private int midpoint(int p, int r) {
-		int midpoint = (int) Math.floor(((p + r)) / 2);
-		return midpoint;
+	
+	@Test
+	public void testBigQuickSort() {
+		System.out.println("testing quicksort");
+		IntStream.rangeClosed(0,10).forEach(r -> {
+		/** create a fake array with each half sorted **/
+		List<Integer> data = new ArrayList<>();
+//		System.out.println("loading");
+		long start = System.currentTimeMillis();
+
+		IntStream.rangeClosed(0, 10_000_000).forEach(p -> {
+			int i = ThreadLocalRandom.current().nextInt(0, Integer.MAX_VALUE);
+			data.add(i);
+		});
+		long end = System.currentTimeMillis();
+		String fmt = String.format("elapsed in ms:%d, in secs:%d", end - start,((end - start) / 1000));
+//		System.out.println(fmt);
+		
+		GSort<Integer> sort = new GQuickSort<>(data);
+		assertNotNull("ctr error", sort);
+
+
+//		System.out.println("sorting");
+		start = System.currentTimeMillis();
+		sort.sort();
+		end = System.currentTimeMillis();
+
+//		data.stream().limit(100).forEach(System.out::println);
+		fmt = String.format("elapsed in ms:%d, in secs:%d", end - start,((end - start) / 1000));
+		System.out.println(fmt);
+		
+		});
 	}
-	/**
-	 * @param p
-	 * @param r
-	 * @return
-	 */
-	private int midpoint1(int p, int r) {
-		int midpoint = (int) Math.floor(((r-1)-p)/2);
-		return midpoint;
+	
+	@Test
+	public void testBigBubbleSort() {
+		System.out.println("testing bubbleesort");
+		IntStream.rangeClosed(0,10).forEach(r -> {	
+		/** create a fake array with each half sorted **/
+		List<Integer> data = new ArrayList<>();
+//		System.out.println("loading");
+		long start = System.currentTimeMillis();
+
+		IntStream.rangeClosed(0, 10_000_000).forEach(p -> {
+			int i = ThreadLocalRandom.current().nextInt(0, Integer.MAX_VALUE);
+			data.add(i);
+		});
+
+		long end = System.currentTimeMillis();
+		String fmt = String.format("elapsed in ms:%d, in secs:%d", end - start,((end - start) / 1000));
+//		System.out.println(fmt);
+		GSort<Integer> sort = new GBubbleSort<>(data);
+		assertNotNull("ctr error", sort);
+//		System.out.println("sorting");
+		start = System.currentTimeMillis();
+		sort.sort();
+		end = System.currentTimeMillis();
+
+//		data.stream().limit(100).forEach(System.out::println);
+		fmt = String.format("elapsed in ms:%d, in secs:%d", end - start,((end - start) / 1000));
+		System.out.println(fmt);
+		
+		
+	});
 	}
 
 }
