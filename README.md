@@ -45,5 +45,6 @@ thus far:
 ## Misc Thread Related Exercises fully documented( will add soon )
 1. various chapters from Concurrency In Practice by Brian Goetz are examined in detail.
 2. Added some jkd8 lambda features to some of the Concurrency In Practice examples.
+3. Created an Experiment Concurrent Sorting Class. It uses Callbles, Queues, etc to sort large input.
 
 # and so on and so on. 

@@ -9,7 +9,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 import org.junit.After;
@@ -17,11 +25,13 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.georgecurington.functionalstudymod.concurrent.threads.Utility;
 import com.georgecurington.functionalstudymod.lists.queue.GQueueImpl;
 import com.georgecurington.functionalstudymod.sorts.GSort;
 import com.georgecurington.functionalstudymod.sorts.bubblesort.GBubbleSort;
 import com.georgecurington.functionalstudymod.sorts.quicksort.GQuickSort;
 import com.georgecurington.functionalstudymod.utilities.Pair;
+import com.georgecurington.functionalstudymod.utilities.PairImpl;
 
 /**
  * <pre>
@@ -39,6 +49,7 @@ import com.georgecurington.functionalstudymod.utilities.Pair;
  * @see https://github.com/sidhartha11/InterviewTricks/blob/master/LICENSE
  */
 public class GMergeImplTest {
+	private static final List<Integer> POISONPILL = new ArrayList<>();
 
 	/**
 	 * @throws java.lang.Exception
@@ -239,7 +250,7 @@ public class GMergeImplTest {
 
 	}
 
-	@Test
+	@Ignore
 	public void testBigMergeSort() {
 		System.out.println("testing mergesort");
 		IntStream.rangeClosed(0,10).forEach(r -> {	
@@ -271,7 +282,7 @@ public class GMergeImplTest {
 	});
 	}
 	
-	@Test
+	@Ignore
 	public void testBigQuickSort() {
 		System.out.println("testing quicksort");
 		IntStream.rangeClosed(0,10).forEach(r -> {
@@ -304,7 +315,7 @@ public class GMergeImplTest {
 		});
 	}
 	
-	@Test
+	@Ignore
 	public void testBigBubbleSort() {
 		System.out.println("testing bubbleesort");
 		IntStream.rangeClosed(0,10).forEach(r -> {	
@@ -334,6 +345,145 @@ public class GMergeImplTest {
 		
 		
 	});
+	}
+	
+	@Ignore
+	public void testtwowaymerge() {
+		List<Integer> data = new ArrayList<>();
+		List<Integer> data2 = new ArrayList<>();
+//		System.out.println("loading");
+		long start = System.currentTimeMillis();
+
+		IntStream.rangeClosed(0, 10).forEach(p -> {
+			int i = ThreadLocalRandom.current().nextInt(0, 80);
+			data.add(i);
+			i = ThreadLocalRandom.current().nextInt(0, 80);
+			data2.add(i);
+		});
+		Collections.sort(data);
+		Collections.sort(data2);
+		System.out.println("\ndata:\n");
+		data.forEach(System.out::println);
+		System.out.println("\ndata2:\n");
+		data2.forEach(System.out::println);
+		
+		GSort<Integer> sort = new GMergeImpl<>();
+		List<Integer> merged = ((Merge<Integer>)sort).twowaymerge(data, data2);
+		System.out.println("\nmerged:\n");
+		merged.forEach(System.out::println);
+
+		
+	}
+	private static BlockingQueue<List<Integer>> queue = new LinkedBlockingQueue<>(1000);
+	@Test
+	public void testParallelMerge() {
+		ExecutorService sorterexec = Executors.newCachedThreadPool();
+		Future<List<Integer>> futs = sorterexec.submit(new Collector<Integer>(queue));
+		
+		IntStream.rangeClosed(0, 9).forEach(x -> {
+		List<Integer> data = new ArrayList<>();
+		IntStream.rangeClosed(0, 9).forEach(p -> {
+			int i = ThreadLocalRandom.current().nextInt(0, 80);
+			data.add(i);
+		});
+		sorterexec.submit(new Sorter<Integer>(data,queue));
+		});
+		/** put a poison pill on the queue **/
+		sorterexec.submit(new Sorter<Integer>(POISONPILL,queue));
+		try {
+			List<Integer>  merged = futs.get();
+		} catch (InterruptedException | ExecutionException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		sorterexec.shutdown();
+		try {
+			while ( !sorterexec.awaitTermination(1000, TimeUnit.MILLISECONDS)){
+				System.out.println("waiting..." );
+			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static class Sorter<T extends Comparable<? super T>> implements Callable<Void>{
+
+		private final List<T> list;
+		private final BlockingQueue<List<T>> queue;
+		
+		public Sorter(List<T> list, BlockingQueue<List<T>> queue) {
+			this.list = list;
+			this.queue = queue;
+		}
+		@Override
+		public Void call() throws Exception {
+			Utility.p("sorting one item and putting in queue:" + list.size());
+//			if ( list == POISONPILL ){
+//				
+//			}
+			GSort<T> sort = new GMergeImpl<T>(list);
+			sort.sort();
+			queue.put(list);
+			return null;
+		}
+		
+	}
+	
+	public static class Collector<T extends Comparable<? super T>> implements Callable<List<T>>{
+
+
+		private final BlockingQueue<List<T>> queue;
+		
+		public Collector(BlockingQueue<List<T>> queue) {
+			this.queue = queue;
+		}
+		@Override
+		public List<T> call() throws Exception {
+			ExecutorService exec = Executors.newCachedThreadPool();
+			List<List<T>> lists = new ArrayList<List<T>>();
+			while ( true ) {
+				List<T> list = queue.take();
+				Utility.p("collector got one item:" + list.size());
+//				if (list.equals(POISONPILL)) {
+//					System.out.println("poison pill encountered");
+//					return lists.get(0);
+//				}
+				lists.add(list);
+				if ( lists.size() == 2 ){
+
+					Pair<List<T>, List<T>> pr = new PairImpl<>(lists.get(0), lists.get(1));
+					Utility.p("collecting 2 items " + pr.getLeft().size() + ":" + pr.getRight().size());
+					Utility.p("submitting 2 items to merger:" + pr.getLeft().size() + ":" + pr.getRight().size());
+				    Utility.p(pr.toString());
+				    exec.submit(new Merger<T>(queue,pr));
+				    lists.clear();
+				}
+			}
+		}
+		
+	}
+	
+	public static class Merger<T extends Comparable<? super T>> implements Callable<Void>{
+
+
+		private final BlockingQueue<List<T>> queue;
+		private final Pair<List<T>, List<T>> pr;
+		
+		public Merger(BlockingQueue<List<T>> queue,Pair<List<T>, List<T>> pr) {
+			this.queue = queue;
+			this.pr = pr;
+		}
+		@Override
+		public Void call() throws Exception {
+			GSort<T> sort = new GMergeImpl<T>();
+			Utility.p("merging " + pr.getLeft().size() + ":" + pr.getRight().size());
+			List<T> m = ((Merge)sort).twowaymerge(pr.getLeft(), pr.getRight());
+			Utility.p("merged " + m.size());
+			queue.put(m);
+			return null;
+		}
+		
 	}
 
 }

@@ -26,4 +26,10 @@ public interface Merge<T> {
 
 	public int midpoint(int p, int r);
 
+	Pair<List<T>, List<T>> getHalvesInfinity(List<T> data, int p, int midpoint, int r);
+
+	void mergeInfinity(List<T> data, int p, int q, int r);
+
+	List<T> twowaymerge(List<T> L, List<T> R);
+
 }

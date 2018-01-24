@@ -138,9 +138,63 @@ public class GMergeImpl<T extends Comparable<? super T>> implements GSort<T>, Me
 	 *            the last index of the list
 	 */
 	@Override
-	public void merge(List<T> data, int p, int q, int r) {
+	public void merge(List<T> a, int p, int q, int r) {
 		/** get the two halves first **/
-		Pair<List<T>, List<T>> pair = (Pair<List<T>, List<T>>) getHalves(data, p, q, r);
+		Pair<List<T>, List<T>> pair = (Pair<List<T>, List<T>>) getHalves(a, p, q, r);
+		List<T> L = pair.getLeft();
+		List<T> R = pair.getRight();
+		
+		/** number elements in first list **/
+		int n1 = q - p + 1;
+		/** number elements in the second list **/
+		int n2 = r - q;
+
+		
+		/** reinitialize the index pointers **/
+		int i = 0;
+		int j = 0;
+
+		/** count all the elements in the input list **/
+		boolean firstExhausted = false, secondExhausted = false;
+		for (int k = p; k <= r; k++) {
+			if (i >= n1) {
+				/** first list exhausted **/
+				firstExhausted = true;
+			}
+			if (j >= n2) {
+				/** second list exhausted **/
+				secondExhausted = true;
+			}
+
+			if (firstExhausted || secondExhausted) {
+				if (firstExhausted) {
+					/** copy all of the remaining second array **/
+					a.set(k, R.get(j));
+					j++;
+				} else {
+					/** copy all of the remaining first array **/
+					a.set(k, L.get(i));
+					i++;
+				}
+			} else {
+				/** just continue merging **/
+				if (L.get(i).compareTo(R.get(j)) <= 0) {
+					/** Left list element smaller **/
+					a.set(k, L.get(i));
+					i++;
+				} else {
+					a.set(k, R.get(j));
+					j++;
+				}
+			}
+		}
+
+	}
+	
+	@Override
+	public void mergeInfinity(List<T> data, int p, int q, int r) {
+		/** get the two halves first **/
+		Pair<List<T>, List<T>> pair = (Pair<List<T>, List<T>>) getHalvesInfinity(data, p, q, r);
 		List<T> left = pair.getLeft();
 		List<T> right = pair.getRight();
 		/** now merge the two sorted list **/
@@ -166,6 +220,57 @@ public class GMergeImpl<T extends Comparable<? super T>> implements GSort<T>, Me
 		}
 	}
 
+	/**
+	 * @param L
+	 * @param R
+	 */
+	@Override
+	public List<T> twowaymerge(List<T> L, List<T> R) {
+		boolean firstExhausted = false, secondExhausted = false;
+		List<T> a = new ArrayList<>();
+		int p = 0, i = 0, j = 0;
+		int n1 = L.size();
+		int n2 = R.size();
+		int r = Math.min(L.size(), R.size());
+//		for (int k = p; k <= r; k++) {
+		while ( true ) {
+
+			if (i >= n1) {
+				/** first list exhausted **/
+				firstExhausted = true;
+			}
+			if (j >= n2) {
+				/** second list exhausted **/
+				secondExhausted = true;
+			}
+			if ( firstExhausted && secondExhausted ){
+				break;
+			}
+			if (firstExhausted || secondExhausted) {
+				if (firstExhausted) {
+					/** copy all of the remaining second array **/
+					a.add(R.get(j));
+					j++;
+				} else {
+					/** copy all of the remaining first array **/
+					a.add(L.get(i));
+					i++;
+				}
+			} else {
+				/** just continue merging **/
+				if (L.get(i).compareTo(R.get(j)) <= 0) {
+					/** Left list element smaller **/
+					a.add(L.get(i));
+					i++;
+				} else {
+					a.add(R.get(j));
+					j++;
+				}
+			}
+		}
+		
+		return a;
+	}
 	/**
 	 * <pre>
 	 * split the input list into two parts using the midpoint
@@ -196,7 +301,7 @@ public class GMergeImpl<T extends Comparable<? super T>> implements GSort<T>, Me
 	 * @see com.georgecurington.functionalstudymod.utilities.Pair<List<T>, List<T>>
 	 */
 	@Override
-	public Pair<List<T>, List<T>> getHalves(List<T> data, int p, int midpoint, int r) {
+	public Pair<List<T>, List<T>> getHalvesInfinity(List<T> data, int p, int midpoint, int r) {
 
 		int n1 = (midpoint - p) + 1; /** size of the first half **/
 		int n2 = r - midpoint ; /** size of the second half **/
@@ -221,7 +326,34 @@ public class GMergeImpl<T extends Comparable<? super T>> implements GSort<T>, Me
 		}
 		return new PairImpl<>(left, right);
 	}
+	
+	@Override
+	public Pair<List<T>, List<T>> getHalves(List<T> data, int p, int midpoint, int r) {
 
+		/** number elements in first list **/
+		int n1 = midpoint - p + 1;
+		/** number elements in the second list **/
+		int n2 = r - midpoint;
+
+		List<T> left = new ArrayList<>(n1);
+		List<T> right = new ArrayList<>(n2);
+
+		/** copy the first array **/
+		int i = 0, j = 0;
+		for (i = 0; i < n1; i++) {
+			left.add(data.get(p + i));
+		}
+
+		/** copy the second array **/
+		for (j = 0; j < n2; j++) {
+			right.add(data.get(midpoint + j + 1));
+		}
+		if ( DEBUG ) {
+		Utility.p("left=" + left);
+		Utility.p("right=" + right);
+		}
+		return new PairImpl<>(left, right);
+	}
 	@Override
 	public void merge_sort(List<T> data, int p, int r) {
 		if (p < r) {
