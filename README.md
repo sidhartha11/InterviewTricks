@@ -33,6 +33,7 @@ repository and put your name as the contributor.
 23. reverse string method in O(n/2) time complexity; includes recursive example O(n) complexity
 24. remove duplicates from a sorted array: 1.Iterative , 2. Inplace , 3. Recursive  
 25. Linked list: insertAtHead, insertAtEnd, insertAtMiddle, insertSorted algorithms 
+25. Linked list: deleteNode algorithms 
 
 ## started adding a collection of Design Patterns implemented in Java.
 

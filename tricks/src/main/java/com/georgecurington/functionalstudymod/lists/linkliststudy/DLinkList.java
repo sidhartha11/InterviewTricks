@@ -19,4 +19,7 @@ public interface DLinkList<T> extends Iterable<T> {
 	public boolean insertAtMiddle( T insertPosition , T data );
 	public boolean insertBeforeMiddle(T insertPosition, T data);
 	public boolean insertInOrder(T data);
+	public boolean deleteHeadNode();
+	public int size();
+	public boolean deleteANode(T data);
 }

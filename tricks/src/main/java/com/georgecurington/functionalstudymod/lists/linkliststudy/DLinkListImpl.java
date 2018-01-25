@@ -4,6 +4,7 @@
 package com.georgecurington.functionalstudymod.lists.linkliststudy;
 
 import java.util.Iterator;
+import java.util.Objects;
 
 import com.georgecurington.functionalstudymod.concurrent.threads.Utility;
 
@@ -40,6 +41,7 @@ public class DLinkListImpl<T extends Comparable<? super T>> implements DLinkList
 		Node<T> newNode = Node.newNode(data);
 		if ( head == null ) {
 			head = newNode;
+			cntr++;
 			return true;
 		}
 		/**
@@ -50,7 +52,7 @@ public class DLinkListImpl<T extends Comparable<? super T>> implements DLinkList
 		newNode.setNext(head);
 		head.setPrevious(newNode);
 		head = newNode;
-		
+		cntr++;
 		return true;
 	}
 
@@ -60,6 +62,7 @@ public class DLinkListImpl<T extends Comparable<? super T>> implements DLinkList
 		if ( head == null ) {
 			/** just make it the head in this simple case **/
 			head = Node.newNode(data);
+			cntr++;
 			return true;
 		}
 		/** have to follow the pointers until we get to the last pointer **/
@@ -80,6 +83,7 @@ public class DLinkListImpl<T extends Comparable<? super T>> implements DLinkList
 		if ( head == null ) {
 			/** just make it the head **/
 			head = Node.newNode(data);
+			cntr++;
 			return true;
 		} 
 		Node<T> ptr = head;
@@ -103,6 +107,7 @@ public class DLinkListImpl<T extends Comparable<? super T>> implements DLinkList
 			newNode.setNext(ptrNext);
 			/** we need to point the ptrNext's previous pointer to newNode **/
 			ptrNext.setPrevious(newNode);
+			cntr++;
 		} else {
 			insertAtEnd(savepoint,data);
 		}
@@ -115,6 +120,7 @@ public class DLinkListImpl<T extends Comparable<? super T>> implements DLinkList
 		Node<T> newNode = Node.newNode(data);
 		ptr.setNext(newNode);
 		newNode.setPrevious(ptr);
+		cntr++;
 		return true;	
 	}
 
@@ -156,6 +162,7 @@ public class DLinkListImpl<T extends Comparable<? super T>> implements DLinkList
 		if ( head == null ) {
 			/** just make it the head **/
 			head = Node.newNode(data);
+			cntr++;
 			return true;
 		} 
 		Node<T> ptr = head;
@@ -184,7 +191,7 @@ public class DLinkListImpl<T extends Comparable<? super T>> implements DLinkList
 			} else {
 				head = newNode;
 			}
-			
+			cntr++;
 		} else {
 			insertAtEnd(savepoint,data);
 		}
@@ -196,6 +203,7 @@ public class DLinkListImpl<T extends Comparable<? super T>> implements DLinkList
 		/** if head is null, set to head **/
 		if ( head == null ) {
 			head = Node.newNode(data);
+			cntr++;
 			return true;
 		}
 		/** find the correct place to put the node according to natural ordering **/
@@ -210,11 +218,13 @@ public class DLinkListImpl<T extends Comparable<? super T>> implements DLinkList
 		if ( ptr == null ) {
 			savepoint.setNext(newNode);
 			newNode.setPrevious(savepoint);
+			cntr++;
 			return true;
 		} else if ( ptr == head ) { /** new node is less than current head **/
 			newNode.setNext(head);
 			head.setPrevious(newNode);
 			head = newNode;
+			cntr++;
 			return true;
 		} else { /** the node is somewhere in the middle **/
 			/** ptr is greater than the newNode at this point  **/
@@ -224,15 +234,73 @@ public class DLinkListImpl<T extends Comparable<? super T>> implements DLinkList
 			newNode.setPrevious(savepoint);
 			savepoint.setNext(newNode);
 			ptr.setPrevious(newNode);
+			cntr++;
 			return true;
 		}
 		
 	}
 
-	private boolean notSortInsertionPoint(Node<T> ptr, T data) {
-		boolean larger = data.compareTo(ptr.getData()) >= 0 ;
-		boolean smaller= data.compareTo(ptr.getNext().getData()) <=0 ;
-		return !(larger && smaller) ;
+	@Override
+	public boolean deleteHeadNode() {
+		/** simply delete the root node **/
+		if ( head == null ) {
+			throw new UnsupportedOperationException("tree is null");
+		}
+		if ( head.getNext() == null ){ /** there is only one node, the head **/
+			cntr--;
+			head = null;
+			return true;				
+		}
+		/** save the position head points to currently **/
+		Node<T> headNext = head.getNext();
+		/** point the previous of what head points to , to null **/
+		headNext.setPrevious(null);
+		/** set head to what head previously pointed to, first set it to null, maybe give GC some help **/
+		head = null;
+		head = headNext;
+		cntr--;
+		return false;
+	}
+
+	@Override
+	public int size() {
+		// TODO Auto-generated method stub
+		return cntr;
+	}
+
+	@Override
+	public boolean deleteANode(T data) {
+		Objects.requireNonNull(data);
+		if ( head == null ) {
+			return false;
+		}
+		/** get the head pointer position first out of the way **/
+		if ( data.equals(head.getData())) {
+			return deleteHeadNode();
+		}
+		Node<T> ptr = head;
+		Node<T> savePtr = null;
+		while ( ptr != null ){
+			savePtr = ptr;
+			if ( ptr.getData().equals(data)) {
+				/** 
+				 * we want to delete this node:D
+				 * a -- D -- b
+				 * D -- a -- b
+				 * a -- c -- D
+				 */
+				Node<T> ptrNext = ptr.getNext();
+				Node<T> ptrPrior= ptr.getPrevious();
+				ptrPrior.setNext(ptrNext);
+				if ( ptrNext != null ) { /** it was the last node in the list **/
+				ptrNext.setPrevious(ptrPrior);
+				}
+				cntr--;
+				return true;
+			}
+			ptr = ptr.getNext();
+		}
+		return false;
 	}
 
 }
