@@ -15,9 +15,13 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Consumer;
 import java.util.stream.IntStream;
 
 import com.georgecurington.functionalstudymod.concurrent.threads.Utility;
+import com.georgecurington.functionalstudymod.sorts.GSort;
+import com.georgecurington.functionalstudymod.sorts.merge.GMergeImpl;
+import com.georgecurington.functionalstudymod.sorts.quicksort.GQuickSort;
 
 /**
  * <pre>
@@ -68,6 +72,7 @@ public class ConcurrentSortImpl<T extends Comparable<? super T>> implements Conc
 	private final Future<List<T>> collector;
 	private final AtomicReference<Integer> stillCollecting = new AtomicReference<>();
 	private List<T> sortedList;
+	private Consumer<List<T>> sorter;
 
 	/**
 	 * 
@@ -81,6 +86,18 @@ public class ConcurrentSortImpl<T extends Comparable<? super T>> implements Conc
 	public ConcurrentSortImpl() {
 		Utility.p("ConcurrentImpl ctr");
 		collector = collectorexec.submit(new Collector<T>(queue, stillCollecting));
+	}
+	public ConcurrentSortImpl(int sizeOfData,Consumer<List<T>> sorter) {
+		Utility.p("ConcurrentImpl ctr");
+		this.stillCollecting.set(sizeOfData);
+		this.sorter=sorter;
+		collector = collectorexec.submit(new Collector<T>(queue, stillCollecting));
+	}
+	
+	public ConcurrentSortImpl(Consumer<List<T>> sorter) {
+		Utility.p("ConcurrentImpl ctr");
+		collector = collectorexec.submit(new Collector<T>(queue, stillCollecting));
+		this.sorter = sorter;
 	}
 
 	@Override
@@ -185,10 +202,19 @@ public class ConcurrentSortImpl<T extends Comparable<? super T>> implements Conc
 	@Override
 	public void process(List<T> data) {
 		/** sort a list and put it in the queue **/
+		GSort<T> sort = new GQuickSort<T>();
+//		GSort<T> sort = new GMergeImpl<>();
 		if ( DEBUG ){
 		Utility.p("calling process data size is:" + data.size());
 		}
-		futs.add(sorterexec.submit(new Sorter<T>(data, queue)));
+		
+		/** default sort method is quicksort unless this was specified via constructor **/
+		if ( sorter == null ) {
+		futs.add(sorterexec.submit(new Sorter<T>(data, queue,sort::sort)));
+		} else {
+			futs.add(sorterexec.submit(new Sorter<T>(data, queue,sorter)));
+
+		}
 	}
 
 	public static void main(String... strings) {

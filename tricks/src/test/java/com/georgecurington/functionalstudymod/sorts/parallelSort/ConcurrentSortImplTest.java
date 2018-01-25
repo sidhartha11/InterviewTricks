@@ -6,6 +6,7 @@ package com.georgecurington.functionalstudymod.sorts.parallelSort;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -18,6 +19,7 @@ import org.junit.Test;
 
 import com.georgecurington.functionalstudymod.concurrent.threads.Utility;
 import com.georgecurington.functionalstudymod.sorts.GSort;
+import com.georgecurington.functionalstudymod.sorts.merge.GMergeImpl;
 import com.georgecurington.functionalstudymod.sorts.quicksort.GQuickSort;
 
 /**
@@ -106,11 +108,11 @@ public class ConcurrentSortImplTest {
 		List<Integer> list = concurrentSort.getSortedList();
 		list.stream().limit(100).forEach(System.out::println);
 	}
-	@Test
+	@Ignore
 	public void testBigFileNonParallel() {
 		Utility.p("running concurrent sort");
 		List<Integer> data = new ArrayList<>();
-		IntStream.rangeClosed(0, 600).forEach(x -> {		
+		IntStream.rangeClosed(0, 1000).forEach(x -> {		
 			IntStream.rangeClosed(1, 10_117).forEach(p -> {
 				int i = ThreadLocalRandom.current().nextInt(0, Integer.MAX_VALUE);
 				data.add(i);
@@ -124,23 +126,55 @@ public class ConcurrentSortImplTest {
 		Utility.p(String.format("elasped:%dms, %dsecs", (end - start) , ((end - start)/1000)));
 		data.stream().limit(100).forEach(System.out::println);
 	}
+	
 	@Test
-	public void testConcurrentSortImplProcessFullFile() {
-		Utility.p("running concurrent sort");
+	public void testConcurrentSortMergeSort() {
+		GSort<Integer> qsort = new GQuickSort<Integer>();
+		GSort<Integer> msort = new GMergeImpl<Integer>();
 		List<Integer> data = new ArrayList<>();
-		IntStream.rangeClosed(0, 600).forEach(x -> {		
+		List<Integer> data2 = new ArrayList<>();
+		List<Integer> data3 = new ArrayList<>();
+
+		Utility.p("loading data " );
+		IntStream.rangeClosed(0, 1000).forEach(x -> {		
 			IntStream.rangeClosed(1, 10_117).forEach(p -> {
 				int i = ThreadLocalRandom.current().nextInt(0, Integer.MAX_VALUE);
 				data.add(i);
 			});
 		});
+ 		data2.addAll(data);
+ 		data3.addAll(data);
 		Utility.p("loaded up " + data.size());
+
+		Utility.p("running concurrent merge sort");
+
 		long start = System.currentTimeMillis();
-		ConcurrentSort<Integer> concurrentSort = new ConcurrentSortImpl<>();
+		ConcurrentSort<Integer> concurrentSort = new ConcurrentSortImpl<>(msort::sort);
 		List<Integer> list = concurrentSort.processFullFile(data);
 		long end = System.currentTimeMillis();
 		Utility.p(String.format("elasped:%dms, %dsecs", (end - start) , ((end - start)/1000)));
-		list.stream().limit(100).forEach(System.out::println);
+		list.stream().limit(4).forEach(System.out::println);
+		
+		
+		Utility.p("running concurrent quick sort");
+
+		start = System.currentTimeMillis();
+		concurrentSort = new ConcurrentSortImpl<>(qsort::sort);
+		list = concurrentSort.processFullFile(data2);
+		end = System.currentTimeMillis();
+		Utility.p(String.format("elasped:%dms, %dsecs", (end - start) , ((end - start)/1000)));
+		list.stream().limit(4).forEach(System.out::println);
+		
+		Utility.p("running library sort");
+		qsort = new GQuickSort<Integer>();
+
+		start = System.currentTimeMillis();
+//		Collections.sort(data3);
+		qsort.sort(data3);
+
+		end = System.currentTimeMillis();
+		Utility.p(String.format("elasped:%dms, %dsecs", (end - start) , ((end - start)/1000)));
+		data3.stream().limit(10).forEach(System.out::println);
 	}
 
 }

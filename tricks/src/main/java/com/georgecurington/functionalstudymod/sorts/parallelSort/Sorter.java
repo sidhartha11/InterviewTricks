@@ -3,6 +3,9 @@ package com.georgecurington.functionalstudymod.sorts.parallelSort;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
 import com.georgecurington.functionalstudymod.concurrent.threads.Utility;
 import com.georgecurington.functionalstudymod.sorts.GSort;
 import com.georgecurington.functionalstudymod.sorts.quicksort.GQuickSort;
@@ -22,9 +25,18 @@ public class Sorter<T extends Comparable<? super T>> implements Callable<List<T>
 	private static final boolean DEBUG = false;
 	private final List<T> list;
 	private final BlockingQueue<List<T>> queue;
+	private Supplier<GSort<T>> supplier;
+	private Consumer<List<T>>  sorter;
+	
 	public Sorter(List<T> list, BlockingQueue<List<T>> queue) {
 		this.list = list;
 		this.queue = queue;
+	}
+	
+	public Sorter(List<T> list, BlockingQueue<List<T>> queue, Consumer<List<T>>  sorter ) {
+		this.list = list;
+		this.queue = queue;
+		this.sorter = sorter ;
 	}
 
 	@Override
@@ -33,9 +45,14 @@ public class Sorter<T extends Comparable<? super T>> implements Callable<List<T>
 			if (Sorter.DEBUG) {
 				Utility.p("sorting one item and putting in queue:" + list.size());
 			}
-			// GSort<T> sort = new GMergeImpl<T>(list);
-			GSort<T> sort = new GQuickSort<T>(list);
-			sort.sort();
+			
+			if ( sorter != null ){
+				sorter.accept(list);
+			} else {
+				GSort<T> sort = new GQuickSort<T>(list);
+				sort.sort();
+			}
+			
 			queue.put(list);
 		} finally {
 			if (Sorter.DEBUG) {
