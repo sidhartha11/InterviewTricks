@@ -6,6 +6,8 @@ package com.georgecurington.functionalstudymod.lists.linkliststudy;
 import static org.junit.Assert.*;
 
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import org.junit.After;
 import org.junit.Before;
@@ -203,7 +205,7 @@ public class DLinkListImplTest {
 		}
 	}
 	
-	@Test
+	@Ignore
 	public void testDeleteANode() {
 		DLinkList<String> dlinkList = new DLinkListImpl<>();
 		boolean b=false;
@@ -267,6 +269,32 @@ public class DLinkListImplTest {
 		for (String ele : dlinkList ) {
 			System.out.println(ele);
 		}
+	}
+	
+	@Test
+	public void testSpliteratorExample() {
+		DLinkList<String> dlinkList = new DLinkListImpl<>();
+		boolean b=false;
+		b = dlinkList.insertInOrder("A");
+		b = dlinkList.insertInOrder("X");
+		b = dlinkList.insertInOrder("Y");
+		b = dlinkList.insertInOrder("1");
+		b = dlinkList.insertInOrder("B");
+		b = dlinkList.insertInOrder("A");
+		b = dlinkList.insertInOrder("X");
+		b = dlinkList.insertInOrder("Y");
+		b = dlinkList.insertInOrder("1");
+		b = dlinkList.insertInOrder("B");
+		
+		Utility.p("size=" + dlinkList.size());
+		for (String ele : dlinkList ) {
+			System.out.println(ele);
+		}
+		
+		Stream<String> str = 
+				StreamSupport.stream(dlinkList.spliterator(), false);
+		Utility.p("streaming the list");
+		str.forEach(System.out::println);
 	}
 
 }
