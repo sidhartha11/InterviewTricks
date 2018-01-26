@@ -35,6 +35,7 @@ repository and put your name as the contributor.
 25. Linked list: insertAtHead, insertAtEnd, insertAtMiddle, insertSorted algorithms 
 26. Linked list: deleteNode algorithms 
 27. Find 2 elements that are maximum distance apart int array. (Test used at Amazon) 
+28. Find the missing number in an integer array. 
 
 ## started adding a collection of Design Patterns implemented in Java.
 
