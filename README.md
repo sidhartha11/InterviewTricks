@@ -36,6 +36,7 @@ repository and put your name as the contributor.
 26. Linked list: deleteNode algorithms 
 27. Find 2 elements that are maximum distance apart int array. (Test used at Amazon) 
 28. Find the missing number in an integer array. 
+29. Simulation: RestService call logging successful logins to database without waiting for response from DB
 
 ## started adding a collection of Design Patterns implemented in Java.
 
