@@ -37,6 +37,7 @@ repository and put your name as the contributor.
 27. Find 2 elements that are maximum distance apart int array. (Test used at Amazon) 
 28. Find the missing number in an integer array. 
 29. Simulation: RestService call logging successful logins to database without waiting for response from DB
+30. Various examples from "Mastering Lambdas, Java Programming in a Multicore World" 
 
 ## started adding a collection of Design Patterns implemented in Java.
 
