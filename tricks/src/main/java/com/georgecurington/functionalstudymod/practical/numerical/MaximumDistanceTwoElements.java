@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.georgecurington.functionalstudymod.numerical;
+package com.georgecurington.functionalstudymod.practical.numerical;
 
 import com.georgecurington.functionalstudymod.concurrent.threads.Utility;
 import com.georgecurington.functionalstudymod.utilities.Pair;

@@ -3,6 +3,7 @@ muleexamples
 .settings
 .recommenders
 Servers
+springboot
 .classpath
 .project
 target
