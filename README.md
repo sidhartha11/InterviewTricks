@@ -39,6 +39,7 @@ repository and put your name as the contributor.
 29. Simulation: RestService call logging successful logins to database without waiting for response from DB
 30. Various examples from "Mastering Lambdas, Java Programming in a Multicore World" 
 31. Simple Matrix Dot Multiplication example ( TODO -- multi-threaded approach to Matrix Multiplication ) 
+32. Simple Generic Trie Tree Implementation. Feel Free to contribute.
 
 ## started adding a collection of Design Patterns implemented in Java.
 
