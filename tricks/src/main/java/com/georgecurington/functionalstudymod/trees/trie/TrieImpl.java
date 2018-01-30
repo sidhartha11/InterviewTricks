@@ -79,11 +79,6 @@ public class TrieImpl<K extends Comparable<? super K>> implements Trie<K> {
 		int sizeOfkey = key.size();
 		for (int i = 0; i < sizeOfkey; i++) {
 			K ele = key.get(i);
-			/**
-			 * take an easy case first in the analysis: abc as the first string
-			 * abgl as the second string since all characters will be new will
-			 * not get past the if statement below.
-			 */
 			TrieNode<K> node = temp.getChildren().get(ele);
 			if (node == null) {
 				/**
@@ -93,7 +88,6 @@ public class TrieImpl<K extends Comparable<? super K>> implements Trie<K> {
 
 				/** this new node must be put in temp **/
 				temp.getChildren().put(ele, newnode);
-				// newnode.getChildren().put(ele, newnode);
 				/** now we set Temp to the newly created trienode **/
 				temp = newnode;
 				if (i == sizeOfkey - 1) {

@@ -14,4 +14,6 @@ public enum CallType {
 	,yourAccountMyAccount
 	,myAccountYourAccountHash
 	,yourAccountMyAccountHash
+	,myAccountYourAccountExplicit
+	,yourAccountMyAccountExplicit
 }

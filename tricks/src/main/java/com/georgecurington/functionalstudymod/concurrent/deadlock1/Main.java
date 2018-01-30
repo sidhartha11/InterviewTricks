@@ -26,7 +26,37 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		dynamicLockOrderingWithOutDeadLock();
+		explicitLockUsage();
+//		dynamicLockOrderingWithOutDeadLock();
+		
+	}
+
+	private static void explicitLockUsage() {
+		/** create an instance of the locking class **/
+		ExplicitLockExample lock = new ExplicitLockExample();
+		/** create an instance of the worker task **/
+		Account myAccount = new AccountImpl(100l);
+		Account yourAccount = new AccountImpl(100l);
+		Worker3 worker1 = new Worker3(CallType.myAccountYourAccountExplicit, lock,myAccount,yourAccount,1000l,TimeUnit.NANOSECONDS);
+		Worker3 worker2 = new Worker3(CallType.yourAccountMyAccountExplicit, lock,myAccount,yourAccount,10001,TimeUnit.NANOSECONDS);
+		List<Worker3> f1 = Arrays.asList(worker1,worker2);
+		/** submit the workers to an ExecutorService **/
+		ExecutorService exec = Executors.newCachedThreadPool();
+		/** execute a number of tasks */
+		IntStream.range(0,2000).forEach(p -> {
+			List<Worker3> f = Arrays.asList(worker1,worker2);
+			f.stream().forEach(exec::submit);
+		});
+		
+		exec.shutdown();
+		try {
+			while(!exec.awaitTermination(1000, TimeUnit.MILLISECONDS)){
+				Utility.p("waiting for shutdown");
+			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
