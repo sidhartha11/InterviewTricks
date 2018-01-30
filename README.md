@@ -1,11 +1,14 @@
 # InterviewTricks
-Decided To Store Various Trick Coding Exercises That Interviewers Try To Trick You With :) 
-Well, there are various trick coding interview questions that interviewers always try to 
-trip up Java Programmers with. Most of the coding questions are useless in the real world.
-However, since it is popular among various companies to ask such useless coding exercizes 
-I decided to collect as many of them that I hear about and place them here in this repository.
-Feel free to contribute by making a pull request. If I think it deems worthy I will put in the 
-repository and put your name as the contributor. 
+# Decided to store various types of exercises that fall under the following categories:
+1.	Trick questions that my friends tell me about.
+2.	Common algorithms, linkedlist,queue, tree, trie/suffix trees, sorts, searches
+3.	Numerical algorithms that commonly pop up as Trick interview questions
+4.	JDK8 Lambda examples
+5.	Many examples are documented and illustrated from the seminal , yet old , book "Concurrency In Practice". I have tried add JDK8 lambda expressions to the examples wherever possible.
+
+CONTRIBUTE! CONTRIBUTE!
+Feel free to offer pull requests. If I like your request I will add it to my repository noting your contribution. I'll pay special attention to any Dynamic programming examples or any experimental Trie algorithms you might know about. 
+
 ## NOTE: items marked with a ++  have been implemented but not transferred to the git repo yet.
 ## I will try to keep of list of what I have put here thus far:
 1. find all pairs in an array that sum up to some input number. 
