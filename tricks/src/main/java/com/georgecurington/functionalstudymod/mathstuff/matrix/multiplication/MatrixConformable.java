@@ -5,123 +5,152 @@ package com.georgecurington.functionalstudymod.mathstuff.matrix.multiplication;
 
 import java.util.Arrays;
 
+import com.georgecurington.functionalstudymod.concurrent.threads.Utility;
+
 /**
+ * <pre>
+ * <p><b>INTERVIEW TRICKS</b></p>
+ * </pre>
+ * <p>
+ * ================================================
+ * </p>
+ * <br>
+ * 
  * <pre><p><b>INTERVIEW TRICKS</b></p></pre>
  * <p>================================================</p>
- * <pre>
- * This class computes the dot product of two matrixes that 
- * are comformable to multiplication:
- * Number of rows in the first matrix = number columns in the 
- * second matrix. 
- * </pre>
  * <br>
+ * <pre>
+ * Two arrays are comformable for multiplication if the following rule
+ * holds:
+ * a[p,q]
+ * b[r,s] 
+ * where the number of columns of a are equal to the number of rows of b
+ * a[m,n]         b[n,p]
+ *   | |            | |
+ *   | -------------- |
+ *   |----------------|
+ *   so 
+ *   c = a x b means 
+ *   c[m,p] or the number of rows in a and the number of columns in b
+ *   
+ * </pre>
  * @author George Curington
  * @version 1.0.0
- * @since Jan 31, 2018
+ * @since Feb 1, 2018
  * @see https://github.com/sidhartha11/InterviewTricks
  * @see https://github.com/sidhartha11/InterviewTricks/blob/master/LICENSE
+ * 
  */
 public class MatrixConformable {
+	/**
+	 * two arrays a,b are conformable for multiplication if the number of
+	 * columns in a are equal to the number of rows in b.
+	 */
 
+	private static final boolean DEBUG = false;
 
 	/**
-	 * 
+	 * a = 3 rows by 3 columns
 	 */
+	int[][] a = { { 2, 3, 4 }, { 5, 6, 7 }, { 8, 9, 10 } };
+
+	/**
+	 * b = 3 rows by 2 columns
+	 */
+	int[][] b = { { 2, 3, 10, 20 }, { 5, 6, 10, 20 }, { 8, 9, 10, 20 } };
+
+	/**
+	 * The result array will have to be of size: new [3,2]
+	 */
+
 	public MatrixConformable() {
-		doDotMultiplicationExample();
+		try {
+			int c[][] = matrixDotProduct(a, b);
+			for (int i = 0; i < c.length; i++) {
+				Utility.p(Arrays.toString(c[i]));
+			}
+
+		} catch (IncompatibleScalers e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	private int[][] doDotMultiplicationExample() {
-		/** 3 rows **/
-		int[][] myMatrixA = { 
-				{ 3, 5, 7 }, 
-				{ 9, 17, 12 }, 
-				{ 32, 21, 5 } 
-				};
-		
-		/** 3 columns **/
-		int[][] myMatrixB = { 
-				{ 1, 3, 5 }, 
-				{ 7, 9, 11 }, 
-				{ 13, 15, 17 } 
-				};
-		
-		// counters
-		int i, j, k, m, n;
-		// rows and columns for each matrix
+	public int[][] matrixDotProduct(int[][] a, int[][] b) throws IncompatibleScalers {
+
+		int rowsA = a.length;
+		int colsA = a[0].length;
+		int rowsB = b.length;
+		int colsB = b[0].length;
+		int colsBaux[] = new int[rowsB];
+		if (colsA != rowsB) {
+			throw new IncompatibleScalers("columns and rows incompatible");
+		}
+
+		int[][] c = new int[rowsA][colsB];
+		Utility.p("c[" + rowsA + ":" + colsB + "]");
+
 		/**
-		 * The first dimension in java is the row length
+		 * for every row in column a, apply each row to all the columns of b.
+		 * This will create accomodating row in matrix c c(11) = a(row1) x
+		 * b(col1)
 		 */
-		int rowsA = myMatrixA.length;
-		/**
-		 * The second dimension in java is the column length
-		 */
-		int colsA = myMatrixA[0].length;
-		
-		/**
-		 * The first dimension is the row length in java
-		 */
-		int rowsB = myMatrixB.length;
-		/**
-		 * The second dimension is the column length
-		 */
-		int colsB = myMatrixB[0].length;
-		
-		/**
-		 * The result matrix must be comformable to matrix
-		 * multiplication. This means that
-		 * 
-		 * A[m,n] B[o,p]
-		 *     |----|
-		 *   |--------|
-		 * C[m,p] = dimension of new C
-		 * 
-		 * This means that the number of columns of A must 
-		 * equal the number of rows of B
-		 * 
-		 * Now, see here:
-		 * C [i,j]   =  A[i,j] + B[i,j] for each row/col pair of A
-		 * and B
-		 * To calculate the result matrix C we need to perform
-		 * a multiplication and addition of the rows of A against
-		 * the columns of B like so:
-		 * 
-		 * 
-		 * 
-		 */
-		int[][] myMatrixC = new int[rowsA][colsB];
-		// start across rows of A
-		for (i = 0; i < rowsA; i++) { /** traverse each row of myMatrixA **/
-			// work across cols of B
-			for (j = 0; j < colsB; j++) { /** traverse each column of myMatrixB **/
-				// now complete the addition and multiplication
-				for (k = 0; k < colsA; k++) { /** traverse each column of myMatricA **/
-					/**
-					 * 1. take every element in a row of MatrixA and multiply against 
-					 * the corresponding element in a column of MatrixB 
-					 * Hence the colunm in MatrixB remains constant while the row in MatrixA remains 
-					 * constant. 
-					 */
-					myMatrixC[i][j] += myMatrixA[i][k] * myMatrixB[k][j];
-				}
+		for (int i = 0; i < a.length; i++) {
+			/** get a row from matrix a **/
+			int[] rowScaler = getRow(i, a);
+
+			/** multiply that row against each column of matrix b **/
+			/** each entry will represent an element in matrix c **/
+			for (int j = 0; j < b[0].length; j++) {
+
+				/** get a column from matrix b **/
+				int[] colScaler = getCol(colsBaux, j, b);
+
+				/** generate the dot product of the row and column data **/
+				c[i][j] = dotProductOfVectors(rowScaler, colScaler);
+
 			}
 		}
-		
-		return myMatrixC;
+		return c;
+	}
+
+	public int dotProductOfVectors(int[] column, int[] row) throws IncompatibleScalers {
+		if (column.length != row.length) {
+			throw new IncompatibleScalers("row and column Lenght must be equal");
+		}
+		int total = 0;
+		for (int i = 0; i < column.length; i++) {
+			total += (column[i] * row[i]);
+		}
+		return total;
+	}
+
+	public int[] getRow(int rowId, int[][] matrix) throws IncompatibleScalers {
+
+		if (rowId > matrix.length || rowId < 0) {
+			throw new IncompatibleScalers("row id not valid");
+		}
+		return matrix[rowId];
+	}
+
+	public int[] getCol(int[] colsBaux, int colId, int[][] matrix) throws IncompatibleScalers {
+
+		if (colId > matrix[0].length || colId < 0) {
+			throw new IncompatibleScalers("col id not valid");
+		}
+
+		/** scan thru the matrix, selecting the target column **/
+		for (int i = 0; i < matrix.length; i++) {
+			colsBaux[i] = matrix[i][colId];
+		}
+		return colsBaux;
 	}
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		MatrixConformable dot = new MatrixConformable();
-		int[][] dotProduct = dot.doDotMultiplicationExample();
-		for ( int[] columns : dotProduct ){
-			System.out.println(Arrays.toString(columns));
-		}
-		
-		
-
+		MatrixConformable matrix = new MatrixConformable();
 	}
 
 }
