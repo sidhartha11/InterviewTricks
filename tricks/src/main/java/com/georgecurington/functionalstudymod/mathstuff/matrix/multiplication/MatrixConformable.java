@@ -50,17 +50,17 @@ public class MatrixConformable {
 	private static final boolean DEBUG = false;
 
 	/**
-	 * a = 3 rows by 3 columns
+	 * a = p rows by 3 columns
 	 */
 	int[][] a = { { 2, 3, 4 }, { 5, 6, 7 }, { 8, 9, 10 } };
 
 	/**
-	 * b = 3 rows by 2 columns
+	 * b = 3 rows by q columns
 	 */
 	int[][] b = { { 2, 3, 10, 20 }, { 5, 6, 10, 20 }, { 8, 9, 10, 20 } };
 
 	/**
-	 * The result array will have to be of size: new [3,2]
+	 * The result array will have to be of size: new [p,q]
 	 */
 
 	public MatrixConformable() {
