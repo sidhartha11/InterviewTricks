@@ -115,4 +115,29 @@ public final class Utility {
 		System.out.println(Thread.currentThread().getName() + ":" + string);
 		
 	}
+	
+	public static String centerNumber(int disp, int nmbr) {
+		String n = String.valueOf(nmbr);
+		int d = disp - n.length();
+		StringBuilder acc = new StringBuilder();
+		acc.append(nmbr);
+		for ( int i = 0 ; i < d ; i++ ){
+			acc.append(" ");
+		}
+		return acc.toString();
+	}
+	
+	public static String convertBol(int disp, int sz , boolean b) {
+		int d = disp - sz;
+		StringBuilder acc = new StringBuilder();
+
+		if ( b ) 
+			acc.append("t"); 
+		else 
+			acc.append("f");
+		for ( int i = 0 ; i < d ; i++ ){
+			acc.append(" ");
+		}
+		return acc.toString();
+	}
 }

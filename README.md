@@ -5,6 +5,7 @@
 3.	Numerical algorithms that commonly pop up as Trick interview questions
 4.	JDK8 Lambda examples
 5.	Many examples are documented and illustrated from the seminal , yet old , book "Concurrency In Practice". I have tried add JDK8 lambda expressions to the examples wherever possible.
+6.	Numerical Summing Trick Questions: Number pairs in a set that sum up to some n; Subset Sum Problem; etc etc 
 
 CONTRIBUTE! CONTRIBUTE!
 Feel free to offer pull requests. If I like your request I will add it to my repository noting your contribution. I'll pay special attention to any Dynamic programming examples or any experimental Trie algorithms you might know about. 
@@ -43,6 +44,7 @@ Feel free to offer pull requests. If I like your request I will add it to my rep
 30. Various examples from "Mastering Lambdas, Java Programming in a Multicore World" 
 31. Simple Matrix Dot Multiplication example ( TODO -- multi-threaded approach to Matrix Multiplication ) 
 32. Simple Generic Trie Tree Implementation. Feel Free to contribute.
+33. SUBSET SUM PROBLEM: Simple Dynamic Programming Implementation. 
 
 ## started adding a collection of Design Patterns implemented in Java.
 
