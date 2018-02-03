@@ -45,6 +45,7 @@ Feel free to offer pull requests. If I like your request I will add it to my rep
 31. Simple Matrix Dot Multiplication example ( TODO -- multi-threaded approach to Matrix Multiplication ) 
 32. Simple Generic Trie Tree Implementation. Feel Free to contribute.
 33. SUBSET SUM PROBLEM: Simple Dynamic Programming Implementation. 
+34. Find all pairs in a SORTED array that add up to some number.
 
 ## started adding a collection of Design Patterns implemented in Java.
 

@@ -81,10 +81,10 @@ public class SubSumProblemTest {
 		
 		SubSumProblem subsum = new SubSumProblem();
 		assertNotNull("cannot create instance", subsum);
-		int solutionsize = 18;
+		int solutionsize = 6;
 		List<Integer> ravailableSet = new ArrayList<>();
 		List<Pair<Integer, Integer>> availableSet = new ArrayList<>();
-		ravailableSet.addAll(Arrays.asList(1,5, 7, 11));
+		ravailableSet.addAll(Arrays.asList(1, 3, 5, 11));
 		ravailableSet.add(0, 0);
 		
 		/** note , sorting the elements producing a different matrix **/
@@ -94,7 +94,12 @@ public class SubSumProblemTest {
 			availableSet.add(new PairImpl<Integer, Integer>(ravailableSet.get(p), p));
 		});
 
-		//Utility.p(availableSet.toString());
+		// The availbleSet is initialized to this:
+//		Utility.p(availableSet.toString());
+		availableSet.stream().forEach(p -> {
+			System.out.println(p);
+		});
+		Utility.p("solutionsize=" + solutionsize);
 		boolean[][] memoizationMatrix = new boolean[availableSet.size()][solutionsize + 1];
 		boolean[][] mmatrix = subsum.getMemoizationMatrix(availableSet, solutionsize, memoizationMatrix);
 		System.out.print("         ");
