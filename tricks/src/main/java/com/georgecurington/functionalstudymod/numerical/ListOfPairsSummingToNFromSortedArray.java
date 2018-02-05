@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.georgecurington.functionalstudymod.concurrent.threads.Utility;
 import com.georgecurington.functionalstudymod.utilities.Pair;
 import com.georgecurington.functionalstudymod.utilities.PairImpl;
 
@@ -44,6 +45,13 @@ public class ListOfPairsSummingToNFromSortedArray {
 		// TODO Auto-generated constructor stub
 	}
 
+	public int findOddNumberOccuringOnce(int[] arr){
+		int n=0;
+		for ( int i = 0;i < arr.length; i++){
+			n ^= arr[i];
+		}
+		return n;
+	}
 	public Set<Pair<Integer, Integer>> findPairsSumming(int[] arr, int sum) {
 		Set<Pair<Integer, Integer>> pairs = new HashSet<>();
 		int l = 0;
@@ -70,6 +78,9 @@ public class ListOfPairsSummingToNFromSortedArray {
 		ListOfPairsSummingToNFromSortedArray prs = new ListOfPairsSummingToNFromSortedArray();
 		Set<Pair<Integer, Integer>> set = prs.findPairsSumming(arr, 11);
 		set.forEach(System.out::println);
+		
+		int[] arrOdd = { 5, 8, 7,4,4,8,5,2,3,3,2 };
+		Utility.p("odd = " + prs.findOddNumberOccuringOnce(arrOdd));
 	}
 
 }

@@ -38,7 +38,7 @@ import com.georgecurington.functionalstudymod.utilities.Pair;
  * @see https://github.com/sidhartha11/InterviewTricks
  * @see https://github.com/sidhartha11/InterviewTricks/blob/master/LICENSE
  */
-public class SubSumProblem {
+public class SubSetSumProblem {
 
 	/**
 	 * <pre>
@@ -50,7 +50,7 @@ public class SubSumProblem {
 	 * </pre>
 	 * 
 	 */
-	public SubSumProblem() {
+	public SubSetSumProblem() {
 	}
 
 	/**
@@ -127,6 +127,6 @@ public class SubSumProblem {
 	}
 
 	public static void main(String... strings) {
-		new SubSumProblem();
+		new SubSetSumProblem();
 	}
 }

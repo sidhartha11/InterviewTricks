@@ -13,7 +13,7 @@ package com.georgecurington.functionalstudymod.practical.oop.inheritance;
  * @see https://github.com/sidhartha11/InterviewTricks
  * @see https://github.com/sidhartha11/InterviewTricks/blob/master/LICENSE
  */
-public class Dog extends Animal {
+public class anotherDog extends Animal {
 
 	/* (non-Javadoc)
 	 * @see com.georgecurington.functionalstudymod.oop.inheritance.Animal#getIsMammal()
@@ -36,7 +36,7 @@ public class Dog extends Animal {
 	/**
 	 * 
 	 */
-	public Dog() {
+	public anotherDog() {
 		// TODO Auto-generated constructor stub
 	}
 

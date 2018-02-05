@@ -3,6 +3,8 @@
  */
 package com.georgecurington.functionalstudymod.practical.inmemorystore;
 
+import java.util.Comparator;
+
 /**
  * <pre><p><b>INTERVIEW TRICKS</b></p></pre>
  * <p>================================================</p>
@@ -15,6 +17,15 @@ package com.georgecurington.functionalstudymod.practical.inmemorystore;
  */
 public class ContactsImpl implements Contacts, Comparable<ContactsImpl> {
 
+	private Comparator<Contacts> contactComparator = new Comparator<Contacts>(){
+
+		@Override
+		public int compare(Contacts arg0, Contacts arg1) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+		
+	};
 	private final String name;
 	private final String nationalId;
 	/**

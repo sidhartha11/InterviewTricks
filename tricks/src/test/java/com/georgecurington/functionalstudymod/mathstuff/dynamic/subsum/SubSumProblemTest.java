@@ -46,17 +46,17 @@ public class SubSumProblemTest {
 	}
 
 	/**
-	 * Test method for {@link com.georgecurington.functionalstudymod.mathstuff.dynamic.subsum.SubSumProblem#SubSumProblem()}.
+	 * Test method for {@link com.georgecurington.functionalstudymod.mathstuff.dynamic.subsum.SubSetSumProblem#SubSumProblem()}.
 	 */
 	@Test
 	public void testSubSumProblem() {
-		SubSumProblem subsum = new SubSumProblem();
+		SubSetSumProblem subsum = new SubSetSumProblem();
 		assertNotNull("cannot create instance", subsum);
 	}
 	
 	@Test
 	public void testGetMemoizationMatrix() {
-		SubSumProblem subsum = new SubSumProblem();
+		SubSetSumProblem subsum = new SubSetSumProblem();
 		assertNotNull("cannot create instance", subsum);
 		int solutionsize = 5;
 		List<Integer> ravailableSet = new ArrayList<>();
@@ -79,7 +79,7 @@ public class SubSumProblemTest {
 	@Test
 	public void displayMemoizationMatrix(){
 		
-		SubSumProblem subsum = new SubSumProblem();
+		SubSetSumProblem subsum = new SubSetSumProblem();
 		assertNotNull("cannot create instance", subsum);
 		int solutionsize = 6;
 		List<Integer> ravailableSet = new ArrayList<>();
@@ -121,7 +121,7 @@ public class SubSumProblemTest {
 	
 	@Test
 	public void centerNumber() {
-		SubSumProblem subsum = new SubSumProblem();
+		SubSetSumProblem subsum = new SubSetSumProblem();
 		assertNotNull("cannot create instance", subsum);
 		String s=Utility.centerNumber(5,5);
 		System.out.println("123456789");

@@ -21,7 +21,7 @@ public class Main {
 	 * 
 	 */
 	public Main() {
-		Animal dog = new Dog();
+		Animal dog = new anotherDog();
 		Animal cow = new Cow();
 		Animal duck = new Duck();
 		Utility.p("dog greeting:" + dog.getGreeting());
