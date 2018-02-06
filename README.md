@@ -46,6 +46,7 @@ Feel free to offer pull requests. If I like your request I will add it to my rep
 32. Simple Generic Trie Tree Implementation. Feel Free to contribute.
 33. SUBSET SUM PROBLEM: Simple Dynamic Programming Implementation. 
 34. Find all pairs in a SORTED array that add up to some number.
+35. MaxHeapify, heap sort , extract max   
 
 ## started adding a collection of Design Patterns implemented in Java.
 
@@ -55,6 +56,7 @@ thus far:
 3. singleton pattern
 4. strategy pattern
 5. decorator pattern 
+6. command pattern 
 
 ## Misc Thread Related Exercises fully documented( will add soon )
 1. various chapters from Concurrency In Practice by Brian Goetz are examined in detail.
