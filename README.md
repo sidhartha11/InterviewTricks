@@ -47,6 +47,7 @@ Feel free to offer pull requests. If I like your request I will add it to my rep
 33. SUBSET SUM PROBLEM: Simple Dynamic Programming Implementation. 
 34. Find all pairs in a SORTED array that add up to some number.
 35. MaxHeapify, heap sort , extract max   
+36. Examples of latches, CyclicBarrier, CountDown , Exchanger 
 
 ## started adding a collection of Design Patterns implemented in Java.
 

@@ -303,4 +303,18 @@ public class DLinkListImpl<T extends Comparable<? super T>> implements DLinkList
 		return false;
 	}
 
+	@Override
+	public T findMiddle() {
+		Node<T> headPtr = head;
+		Node<T> middlePtr = head;
+		int cntr=0;
+		while ( headPtr != null ){
+			if ( (cntr++) % 2 != 0 ){
+				middlePtr = middlePtr.getNext();
+			}
+			headPtr = headPtr.getNext();
+		}
+		return middlePtr.getData();
+	}
+
 }

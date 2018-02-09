@@ -27,7 +27,7 @@ import com.georgecurington.functionalstudymod.concurrent.threads.Utility;
  * @see https://github.com/sidhartha11/InterviewTricks/blob/master/LICENSE
  */
 public class DLinkListImplTest {
-
+	int cntr=0;
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -271,7 +271,7 @@ public class DLinkListImplTest {
 		}
 	}
 	
-	@Test
+	@Ignore
 	public void testSpliteratorExample() {
 		DLinkList<String> dlinkList = new DLinkListImpl<>();
 		boolean b=false;
@@ -295,6 +295,27 @@ public class DLinkListImplTest {
 				StreamSupport.stream(dlinkList.spliterator(), false);
 		Utility.p("streaming the list");
 		str.forEach(System.out::println);
+	}
+	
+	@Test
+	public void testFindMiddleWithoutApi() {
+		DLinkList<String> dlinkList = new DLinkListImpl<>();
+		boolean b = false;
+		IntStream.of(32,33,34,35,36,37,38)
+		.mapToObj(p -> String.valueOf((char)p))
+		.forEach(p -> {
+			dlinkList.insertAtHead(p);
+		});
+		
+		
+		int cntr=0;
+		Utility.p("size=" + dlinkList.size() + ",midpoint=" + (dlinkList.size()/2));
+		for (String ele : dlinkList ) {
+			System.out.println((++cntr) + ":" + ele);
+		}
+		
+		String middle = dlinkList.findMiddle();
+		Utility.p("middle=" + middle);
 	}
 
 }

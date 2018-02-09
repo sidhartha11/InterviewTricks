@@ -3,6 +3,9 @@
  */
 package com.georgecurington.functionalstudymod.numerical;
 
+import java.util.Arrays;
+import java.util.BitSet;
+
 import com.georgecurington.functionalstudymod.concurrent.threads.Utility;
 
 /**
@@ -82,6 +85,21 @@ public class MIssingNumberInArray {
 	    }
 	    return n;
 	}
+	private void usingBitSet(int[] numbers, int count) {
+		int missingCount = count - numbers.length; 
+		BitSet bitSet = new BitSet(count); 
+		for (int number : numbers) { 
+			bitSet.set(number - 1); 
+			} 
+		System.out.printf("Missing numbers in integer array %s, with total number %d is %n", 
+				Arrays.toString(numbers), count); 
+		int lastMissingIndex = 0; 
+		for (int i = 0; i < missingCount; i++) { 
+			lastMissingIndex = bitSet.nextClearBit(lastMissingIndex); 
+			System.out.println(++lastMissingIndex); 
+			} 
+		}
+
 
 	/**
 	 * @param args
@@ -92,6 +110,8 @@ public class MIssingNumberInArray {
 		Utility.p("brute force=" + m.bruteForce(arr1));
 		Utility.p("formula=" + m.formula(arr1));
 		Utility.p("xorFormula=" + m.xorFormula(arr1));
+		Utility.p("missing numbers using bitSet");
+		m.usingBitSet(arr1,arr1.length + 1 );
 
 	}
 

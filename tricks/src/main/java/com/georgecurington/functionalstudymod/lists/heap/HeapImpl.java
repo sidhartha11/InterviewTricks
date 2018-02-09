@@ -215,6 +215,26 @@ public class HeapImpl<T extends Comparable<? super T>> implements Heap<T> {
 		
 	}
 
+	@Override
+	public void buildHeap(List<T> list, boolean b) {
+		/** only max heap implemented thus far **/
+		if ( true ) {
+			buildMaxHeap(list);
+		} else {
+			throw new UnsupportedOperationException("only max heap supported");
+		}
+		
+	}
+
+	private void buildMaxHeap(List<T> list) {
+		setSize(list.size());
+		int largestNonLeaf = Math.floorDiv(getSize(), 2) - 1;
+		for (int  i = largestNonLeaf; i >= 0; i-- ){
+			maxHeapify(list, i);
+		}
+		
+	}
+
 
 
 }

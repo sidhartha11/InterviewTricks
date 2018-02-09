@@ -31,5 +31,6 @@ public interface Heap<T> {
 	int getSize();
 	void exchange(List<T> list, int i, int largest);
 	T extractMax(List<T> list);
+	void buildHeap(List<T> list, boolean b);
 
 }

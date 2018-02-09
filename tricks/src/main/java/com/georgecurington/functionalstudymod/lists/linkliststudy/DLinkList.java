@@ -22,4 +22,5 @@ public interface DLinkList<T> extends Iterable<T> {
 	public boolean deleteHeadNode();
 	public int size();
 	public boolean deleteANode(T data);
+	public T findMiddle();
 }

@@ -2,7 +2,9 @@ package com.georgecurington.functionalstudymod.lists.heap;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -189,7 +191,7 @@ public class HeapImplTest {
 		
 	}
 	
-	@Test
+	@Ignore
 	public void testExtractMax(){
 		Heap<Integer> heap = new HeapImpl<>();
 		List<Integer> list = 
@@ -205,6 +207,77 @@ public class HeapImplTest {
 		for ( int i = 0 ; i < sz ; i++ ) {
 			int max = heap.extractMax(list);
 			System.out.println("max = " + max);
+		}
+	}
+	
+	@Ignore
+	public void testBuildHeapMethod(){
+		Heap<Integer> heap = new HeapImpl<>();
+		List<Integer> list = 
+				IntStream.of(9,6,5,0,8,2,1,3)
+				.boxed().collect(Collectors.toList());
+		heap.buildHeap(list,true);
+		
+		int sz = heap.getSize();
+		System.out.println("heap size is " + sz);
+		int mod =0;
+		for ( int i = 0 ; i < sz ; i++ ) {
+			int max = heap.extractMax(list);
+			System.out.println("max=" + max);
+		}
+	}
+	
+	@Ignore
+	public void testExtractMaxHugeList(){
+		Heap<Integer> heap = new HeapImpl<>();
+		List<Integer> list = new ArrayList<>(100_000_000);
+		IntStream.rangeClosed(1, 100_000_000).forEach( p -> {
+			list.add(ThreadLocalRandom.current().nextInt());
+		});
+		System.out.println("list size is " + list.size());
+		heap.setSize(list.size());
+		int largestNonLeaf = Math.floorDiv(heap.getSize(), 2) - 1;
+		
+		System.out.println("largestNonLeaf = " + largestNonLeaf );
+		for (int  i = largestNonLeaf; i > 0; i-- ){
+			heap.maxHeapify(list, i);
+		}
+		int sz = heap.getSize();
+		System.out.println("heap size is " + sz);
+		int mod =0;
+		for ( int i = 0 ; i < sz ; i++ ) {
+			int max = heap.extractMax(list);
+			if ( (mod++)  % 1_000_000 == 0 ) {
+				System.out.println("current max = " + max );
+			}
+			
+//			System.out.println("max = " + max);
+		}
+	}
+	
+	@Test
+	public void testBuildHeapMethod2(){
+		for (int i = 0; i < 10; i++) {
+			List<Integer> list  = new ArrayList<>();
+			int b = i;
+			IntStream.rangeClosed(1, 10).forEach(p -> {
+				list.add(ThreadLocalRandom.current().nextInt(0,10_000));
+			});
+			Utility.p("--------------------------------");
+			list.stream().limit(10).forEach(System.out::println);
+			Utility.p("--------------------------------");
+			// Utility.p(list[i].toString());
+			
+			Heap<Integer> heap = new HeapImpl<>();
+			Utility.p("calling buildHeap");
+			heap.buildHeap(list, true);
+			Integer r = heap.extractMax(list);
+			Utility.p("..max=" + r);
+			for (int x = 0; x < list.size()-1;x++){
+				Integer r2 = heap.extractMax(list);
+				Utility.p("..max=" + r2);
+			}
+		
 		}
 	}
 
