@@ -116,6 +116,11 @@ public final class Utility {
 		
 	}
 	
+	public static void p(Object string) {
+		System.out.println(Thread.currentThread().getName() + ":" + string);
+		
+	}
+	
 	public static String centerNumber(int disp, int nmbr) {
 		String n = String.valueOf(nmbr);
 		int d = disp - n.length();

@@ -49,7 +49,7 @@ Feel free to offer pull requests. If I like your request I will add it to my rep
 35. MaxHeapify, heap sort , extract max   
 36. Examples of latches, CyclicBarrier, CountDown , Exchanger 
 
-## started adding a collection of Design Patterns implemented in Java.
+## started adding a collection of examples of Design Patterns implemented in Java.
 
 thus far:
 1. visitor pattern
@@ -58,6 +58,7 @@ thus far:
 4. strategy pattern
 5. decorator pattern 
 6. command pattern 
+7. builder pattern
 
 ## Misc Thread Related Exercises fully documented( will add soon )
 1. various chapters from Concurrency In Practice by Brian Goetz are examined in detail.
