@@ -59,6 +59,7 @@ thus far:
 5. decorator pattern 
 6. command pattern 
 7. builder pattern
+7. proxy  pattern
 
 ## Misc Thread Related Exercises fully documented( will add soon )
 1. various chapters from Concurrency In Practice by Brian Goetz are examined in detail.
