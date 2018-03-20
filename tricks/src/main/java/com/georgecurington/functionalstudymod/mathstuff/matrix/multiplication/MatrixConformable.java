@@ -16,9 +16,14 @@ import com.georgecurington.functionalstudymod.concurrent.threads.Utility;
  * </p>
  * <br>
  * 
- * <pre><p><b>INTERVIEW TRICKS</b></p></pre>
- * <p>================================================</p>
+ * <pre>
+ * <p><b>INTERVIEW TRICKS</b></p>
+ * </pre>
+ * <p>
+ * ================================================
+ * </p>
  * <br>
+ * 
  * <pre>
  * Two arrays are comformable for multiplication if the following rule
  * holds:
@@ -32,8 +37,9 @@ import com.georgecurington.functionalstudymod.concurrent.threads.Utility;
  *   so 
  *   c = a x b means 
  *   c[m,p] or the number of rows in a and the number of columns in b
- *   
+ * 
  * </pre>
+ * 
  * @author George Curington
  * @version 1.0.0
  * @since Feb 1, 2018
@@ -49,21 +55,62 @@ public class MatrixConformable {
 
 	private static final boolean DEBUG = false;
 
+	// main:[2, 3, 4]
+	// main:[5, 6, 7]
+	// main:[8, 9, 10]
 	/**
 	 * a = p rows by 3 columns
 	 */
-	int[][] a = { { 2, 3, 4 }, { 5, 6, 7 }, { 8, 9, 10 } };
+	int[][] a = { { 2, 3, 4 }, 
+			      { 5, 6, 7 }, 
+			      { 8, 9, 10 } };
 
 	/**
 	 * b = 3 rows by q columns
 	 */
-	int[][] b = { { 2, 3, 10, 20 }, { 5, 6, 10, 20 }, { 8, 9, 10, 20 } };
+	int[][] b = { { 2, 3, 10, 20 }, 
+			      { 5, 6, 10, 20 }, 
+			      { 8, 9, 10, 20 } };
 
 	/**
 	 * The result array will have to be of size: new [p,q]
 	 */
 
 	public MatrixConformable() {
+		scanColumns(b);
+		int[] column = null;
+		int[] row = null;
+		for (int i = 0; i < b[0].length; i++) {
+			column = getColumn(b, i);
+			Utility.p(Arrays.toString(column));
+		}
+		
+		for (int i = 0; i < b.length; i++) {
+			row = getRow(b, i);
+			Utility.p(Arrays.toString(row));
+		}
+		
+		/** try using utility methods to multiply rows by columns **/
+		for ( int i = 0 ; i < a.length; i++ ){
+			/** multiply each row by every column **/
+			row = getRow(a, i);
+			for ( int j = 0 ; j < b[0].length; j++ ){
+				column = getColumn(b, j);
+				try {
+					int p = dotProductOfVectors(column, row);
+					Utility.p("mult item:" + p);
+				} catch (IncompatibleScalers e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void dotProduct() {
 		try {
 			int c[][] = matrixDotProduct(a, b);
 			for (int i = 0; i < c.length; i++) {
@@ -149,8 +196,58 @@ public class MatrixConformable {
 	/**
 	 * @param args
 	 */
+
 	public static void main(String[] args) {
 		MatrixConformable matrix = new MatrixConformable();
 	}
 
+	/**
+	 * UTILITY METHODS FOR ANALYZING MATRICES
+	 */
+
+	public void scanColumns(int[][] a) {
+		if (a == null) {
+			throw new IllegalMatrixException("input matrix is null!");
+		}
+		int colsize = a[0].length;
+		int colcntr = 0;
+		for (int q = 0; q < colsize; q++) {
+			for (int i = 0; i < a.length; i++) {
+				// Utility.p("row=" + Arrays.toString(a[i]));
+				if (a[i].length != colsize) {
+					throw new IllegalMatrixException("input matrix cols not conform");
+				}
+				Utility.p(a[i][q]);
+				colcntr++;
+			}
+		}
+	}
+
+	public int[] getColumn(int[][] a, int col) {
+		if (a == null) {
+			throw new IllegalMatrixException("input matrix is null!");
+		}
+		int colsize = a[0].length;
+		if (col < 0 || col > colsize - 1) {
+			throw new IllegalMatrixException("Incorrect number of columns");
+		}
+		int[] rcol = new int[a.length];
+		int i = 0;
+		for (int r = 0; r < a.length; r++) {
+			rcol[i++] = a[r][col];
+		}
+		return rcol;
+
+	}
+
+	public int[] getRow(int[][] a, int row) {
+		if (a == null) {
+			throw new IllegalMatrixException("input matrix is null!");
+		}
+		int rowsize = a.length;
+		if (row < 0 || row > rowsize - 1) {
+			throw new IllegalMatrixException("Incorrect number of columns");
+		}
+		return a[row];
+	}
 }

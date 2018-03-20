@@ -40,8 +40,22 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new Main();
+		new Main().new Moo().touchP();
 
 	}
 
+	class Moo {
+		private int p = 1;
+		public Moo(){
+			
+		}
+		public void touchP() {
+			Moo m = new Moo();
+			m.p = 10;
+			System.out.println("we can touch private p in another instance:" + m.p);
+		}
+		public void mutateMoo(Moo that) {
+			that.p = 13;
+		}
+	}
 }

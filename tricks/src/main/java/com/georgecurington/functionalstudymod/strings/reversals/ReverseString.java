@@ -6,6 +6,8 @@ package com.georgecurington.functionalstudymod.strings.reversals;
 import java.util.Arrays;
 import java.util.Stack;
 
+import com.georgecurington.functionalstudymod.concurrent.threads.Utility;
+
 /**
  * @author george Curington
  * @since Dec 25 2017
@@ -22,6 +24,10 @@ public class ReverseString {
 	}
 	
 	public String reverse(String string) {
+		if ( string == null ){
+			throw new IllegalAccessError("illegal string");
+		} 
+		
 		StringBuilder sb = new StringBuilder(string);
 		int mid = sb.length()/2;
 		int length=sb.length();
@@ -46,6 +52,7 @@ public class ReverseString {
 	}
 	
 	public String reverseByte(String string) {
+
 		byte[] arr = string.getBytes();
 		int length = arr.length;
 		int mid = length/2;
@@ -66,6 +73,12 @@ public class ReverseString {
 			return string2;
 		}
 		return revRecur(string.substring(1),string.substring(0, 1) + string2);
+	}
+	
+	public static void main(String...strings ){
+		String s = ""	;
+		ReverseString rev = new ReverseString();
+		Utility.p(rev.reverse(s));
 	}
 
 }

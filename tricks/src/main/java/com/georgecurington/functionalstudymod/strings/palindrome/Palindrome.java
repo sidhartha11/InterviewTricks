@@ -3,6 +3,8 @@
  */
 package com.georgecurington.functionalstudymod.strings.palindrome;
 
+import com.georgecurington.functionalstudymod.concurrent.threads.Utility;
+
 /**
  * @author george Curington
  * @since Dec 25 2017
@@ -56,9 +58,18 @@ public class Palindrome {
 					keepgoing=false;
 				}
 			}
-			if ( keepgoing ){
+			if ( false && keepgoing ){
 				System.out.println("got palindrome " + string );
 			}
 			return keepgoing;
+	}
+	
+	public static void main(String...strings ){
+		Palindrome p = new Palindrome();
+		Utility.p("abbba:" + p.isPalindrome("abbba"));
+		Utility.p("abb:" + p.isPalindrome("abb"));
+		Utility.p("abba:" + p.isPalindrome("abba"));
+		Utility.p("null:" + p.isPalindrome(null));
+		Utility.p("<e>:" + p.isPalindrome(""));
 	}
 }

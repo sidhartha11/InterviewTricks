@@ -5,14 +5,18 @@ package com.georgecurington.functionalstudymod.maps.gac;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.NavigableMap;
 import java.util.NavigableSet;
 import java.util.Queue;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import com.georgecurington.functionalstudymod.concurrent.threads.Utility;
@@ -143,7 +147,19 @@ public class BasicFunctionalityCh16 {
 				iter.remove();
 			}
 		}
+		Comparator<String> comp = new Comparator<String>() {
+
+			@Override
+			public int compare(String o1, String o2) {
+				// TODO Auto-generated method stub
+				return o1.compareTo(o2);
+			}
+		};
+		
+		
+		NavigableMap<String, Integer> nm = new TreeMap<String,Integer>(comp);
 	
+		NavigableSet<String> ns = new TreeSet<>(Arrays.asList("fe","fi","fo","fum"));
 	}
 
 	class Client {

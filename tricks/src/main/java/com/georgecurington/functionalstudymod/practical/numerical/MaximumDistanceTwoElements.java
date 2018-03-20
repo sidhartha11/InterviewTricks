@@ -26,7 +26,7 @@ import com.georgecurington.functionalstudymod.utilities.PairImpl;
  */
 public class MaximumDistanceTwoElements {
 
-	private static final boolean DEBUG = false;
+	private static final boolean DEBUG = true;
 
 	/**
 	 * 

@@ -16,7 +16,7 @@ import java.util.Set;
  * @since Dec 25 2017
  * @version 1.0
  *          <p>
- * 			<center>Pairs of numbers equaling a sum</center>
+ *          <center>Pairs of numbers equaling a sum</center>
  *          </p>
  * 
  *          <pre>
@@ -24,7 +24,7 @@ import java.util.Set;
  * that equal to a particular N. The input array is sorted; a requirement.
  *          </pre>
  *          <p>
- * 			The algorithm proceeds as follows:
+ *          The algorithm proceeds as follows:
  *          <ul>
  *          <li>Load the sorted array into a map
  *          <li>loop thru the sorted array
@@ -118,5 +118,21 @@ public class GAddTwoNumberSummingToN {
 		}
 		return unique;
 	}
+
+	public void printPairsUsingSet(Integer[] numbers, int n)
+	{ 
+		if(numbers.length < 2){ 
+			return; 
+			} 
+		Set set = new HashSet(numbers.length); 
+		for(int value : numbers){ 
+			int target = n - value; // if target number is not in set then add 
+			if(!set.contains(target)){ 
+				set.add(value); 
+				}else { 
+					System.out.printf("(%d, %d) %n", value, target); 
+					} 
+			} 
+		}
 
 }
