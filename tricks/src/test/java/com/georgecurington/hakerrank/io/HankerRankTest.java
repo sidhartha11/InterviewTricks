@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+import java.util.function.Function;
 
 import org.junit.After;
 import org.junit.Before;
@@ -167,4 +168,6 @@ public class HankerRankTest {
 		a2[0] = new Integer(17);
 		String s = a1[0];
 	}
+	
+
 }
