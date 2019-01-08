@@ -94,7 +94,7 @@ public class CreateTiledImage
 	    int ii = 4 - scnt.length();
 	    for ( int j = 0 ; j < ii ; j++ )
 	    	scnt = "0" + scnt ; 
-	    dst = "workarea/" + scnt + ".jpg" ;
+	    dst = "C:\\workarea\\" + scnt + ".jpg" ;
 	    counter++;
        	    BufferedImage bi = image.getSubimage(x, y, w, h);
             File outputfile = new File(dst);
