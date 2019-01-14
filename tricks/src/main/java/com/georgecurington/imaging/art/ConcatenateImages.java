@@ -20,7 +20,7 @@ public class ConcatenateImages {
 			// "C:\\workspaces\\java\\imaging\\artrelated\\InterviewTricks\\trick\\workarea\\";
 
 //			"C:\\aaaolddrive\\images\\";
-	        "C:\\workarea\\fixed\\";
+	        "C:\\workarea\\fixed2\\";
 
 	/**
 	 * 
@@ -95,13 +95,13 @@ public class ConcatenateImages {
 		}
 		int type = bi.getType();
 		System.out.println(si + ":" + type);
-		int nmbrImages = 4;
-		int nmbrCols = 2;
-		int nmbrRows = 2;
+		int nmbrImages = 196;
+		int nmbrCols = 14;
+		int nmbrRows = 14;
 //		int chunkWidth = 500;
 //		int chunkHeight = 500;
-		int chunkWidth = 8134;
-		int chunkHeight = 8134;
+		int chunkWidth = 581;
+		int chunkHeight = 581;
 
 		/** create IWriter Object **/
 		IWriter iWriter = new IWriter(nmbrImages, nmbrRows, nmbrCols, chunkWidth, chunkHeight, type);
@@ -114,13 +114,13 @@ public class ConcatenateImages {
 				System.out.println("[" + chunkWidth * c + "," + chunkHeight * r + "]");
 
 				/** add a rect to the underlying image **/
-//				String fileno = String.format("%s%04d.jpg", dir, nmbrCols * r + c);
-				String fileno = String.format("%senhancedA%d.jpg", dir, nmbrCols * r + c);
+				String fileno = String.format("%s%04d.jpg", dir, nmbrCols * r + c);
+//				String fileno = String.format("%senhancedA%d.jpg", dir, nmbrCols * r + c);
 				iWriter.addRect(fileno, chunkWidth * c, chunkHeight * r);
 			});
 		});
 		
-		iWriter.writeImage("newenhanced.jpg");
+		iWriter.writeImage("newenhancedblack.jpg");
 
 	}
 
