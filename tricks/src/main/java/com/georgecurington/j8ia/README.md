@@ -1,0 +1,1 @@
+Package dedicated to java 8 lambda, stream , concurrency features
