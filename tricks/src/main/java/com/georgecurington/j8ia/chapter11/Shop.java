@@ -27,6 +27,7 @@ public class Shop implements ShopperApiIntf {
 	 */
 	@Override
 	public String getPrice(String product) {
+		System.out.println("in getPrice:" + product);
 		double price =  calculatePrice(product);
 		
 		Discount.Code code = Discount.Code.values()[RANDOM.nextInt(Discount.Code.values().length)];
